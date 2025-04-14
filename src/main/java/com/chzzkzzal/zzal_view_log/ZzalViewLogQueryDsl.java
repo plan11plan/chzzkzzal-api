@@ -14,8 +14,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Repository
-public class ZzalViewLogQueryDsl implements  ZzalViewLogRepositoryCustom{
+public class ZzalViewLogQueryDsl implements ZzalViewLogRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
+
 	public List<ZzalRepeatCountDto> findTop5ByRepeatViews() {
 
 		// 1) 전체 방문수
