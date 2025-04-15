@@ -48,7 +48,7 @@ jobs:
           script_stop: true
           script: |
             rm -rf /home/ubuntu/chzzkzzal-api/current
-            mkdir /home/ubuntu/chzzkzzal-api/tobe
+            mkdir /home/ubuntu/chzzkzzal-api/current
             mv /home/ubuntu/chzzkzzal-api/tobe/project.jar /home/ubuntu/chzzkzzal-api/current/project.jar
             cd /home/ubuntu/chzzkzzal-api/current
             sudo fuser -k -n tcp 8080 || true
