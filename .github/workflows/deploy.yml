@@ -25,4 +25,6 @@ jobs:
         run: |
           echo $ZZ
           echo $zz
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
         
