@@ -20,3 +20,9 @@ jobs:
           echo "a"
           echo "b"
           echo "c"
+
+      - name: 깃헙 환경변수 가져오기
+        run: |
+          echo $ZZ
+          echo %zz
+        
