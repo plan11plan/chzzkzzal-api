@@ -4,11 +4,19 @@ on:
   push:
     branches:
       - github-actions-practice
-
+# 여러 job은 기본적으로 병렬 수행
 jobs:
+  # job 식별 id
   My-Deploy-Job:
+    # OS
     runs-on: ubuntu-latest
-
+    # 1개의 잡은 여러 순차 스텝들을 가짐
     steps:
       - name: Hello World 찍기
         run: echo "Hello World"
+
+      - name: 여러 문장 출력
+        run: |
+          echo "a"
+          echo "b"
+          echo "c"
