@@ -23,8 +23,8 @@ jobs:
 
       - name: 깃헙 환경변수 가져오기
         run: |
-          echo $ZZ
-          echo $zz
+          echo ${{secrets.ZZ}}
+          echo ${{secrets.zz}}
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
         
