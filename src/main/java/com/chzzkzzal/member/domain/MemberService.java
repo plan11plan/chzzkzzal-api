@@ -2,8 +2,11 @@ package com.chzzkzzal.member.domain;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.security.dto.SignInResponse;
+import com.chzzkzzal.core.security.service.AccessTokenService;
+import com.chzzkzzal.core.security.service.RefreshTokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,22 +14,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService {
 	private final MemberRepository memberRepository;
-	private final TokenProvider tokenProvider;
 	private final PasswordEncoder passwordEncoder;
+	private final RefreshTokenService refreshTokenService;
+	private final AccessTokenService accessTokenService;
 
 	/**
 	 * 신규 회원 생성
+	 * - 회원 저장
+	 * - accessToken, refreshToken 발행
 	 */
-	public String signin(String channelId, String channelName) {
+	@Transactional
+	public SignInResponse signin(String channelId, String channelName) {
 		Member member = findOrCreate(channelId, channelName);
-		return tokenProvider.createAccessToken(member.getChannelId());
+		String accessToken = accessTokenService.issueAccessToken(String.valueOf(member.getId()));
+		String refreshToken = refreshTokenService.issueRefreshToken(member);
+		return new SignInResponse(member.getChannelName(), accessToken, refreshToken);
 	}
 
 	public Member findOrCreate(String channelId, String channelName) {
 		return memberRepository.findByChannelId(channelId)
-			.orElseGet(() -> {
-				return createMember(channelId, channelName);
-			});
+			.orElseGet(() -> createMember(channelId, channelName));
 	}
 
 	private Member createMember(String channelId, String channelName) {

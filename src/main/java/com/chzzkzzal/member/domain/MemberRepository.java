@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 	Optional<Member> findByChannelId(String channelId);
 
+	Optional<Member> findById(Long memberId);
+
 	List<Member> findAllByIdIn(List<Long> id);
 
 }

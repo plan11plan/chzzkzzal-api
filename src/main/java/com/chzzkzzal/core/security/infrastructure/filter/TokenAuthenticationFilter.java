@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.security.infrastructure.jwt;
+package com.chzzkzzal.core.security.infrastructure.filter;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.core.security.infrastructure.filter.AuthenticationFilter;
+import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

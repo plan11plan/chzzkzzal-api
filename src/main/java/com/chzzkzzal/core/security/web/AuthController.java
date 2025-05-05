@@ -1,23 +1,24 @@
 package com.chzzkzzal.core.security.web;
 
+import java.util.Objects;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.core.common.error.CustomResponse;
+import com.chzzkzzal.core.security.application.AuthService;
+import com.chzzkzzal.core.security.dto.AccessTokenResponse;
 import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
-import com.chzzkzzal.member.domain.RefreshTokenService;
-import com.chzzkzzal.member.dto.RefreshTokenRequest;
+import com.chzzkzzal.core.security.service.RefreshTokenService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,25 +29,32 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AuthController {
 
-	private final RefreshTokenService RefreshTokenService;
+	private final AuthService authService;
+	private final RefreshTokenService refreshTokenService;
 	private final TokenProvider tokenProvider;
 
-	@Operation(
-		summary = "(개발중) 리프레쉬 토큰 발급",
-		description = ""
-	)
-	@PostMapping("/refresh")
-	public ResponseEntity<CustomResponse<String>> refresh(@RequestBody RefreshTokenRequest request) {
-		// 1) 서비스 호출
-		String tokenResponse = RefreshTokenService.refreshAccessToken(request.refreshToken());
+	@PostMapping("/reissue")
+	@Operation(summary = "액세스 토큰 재발급 API", description = "액세스 토큰 재발급 API [담당자 : 김진수]")
+	public CustomResponse<AccessTokenResponse> reissueAccessToken(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) {
+		return new CustomResponse<>(authService.reissueTokens(request, response));
+	}
 
-		// 2) 결과 반환
-		//    tokenResponse 안에 "accessToken" 만 담아도 되고,
-		//    필요하다면 추가 필드를 넣을 수 있음
-		if (tokenResponse == null) {
-			throw new IllegalArgumentException("Invalid or Expired Refresh Token");
+	@PostMapping("/logout")
+	@Operation(summary = "로그아웃 API", description = "로그아웃 API [담당자 : 이한음]")
+	public CustomResponse<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+		authService.logout(request, response);
+		return CustomResponse.ok();
+	}
+
+	private void validateExistHeader(HttpServletRequest request) {
+		String authorizationHeader = request.getHeader("SESSION");
+		String refreshTokenHeader = request.getHeader("Refresh-Token");
+		if (Objects.isNull(authorizationHeader) || Objects.isNull(refreshTokenHeader)) {
+			throw new IllegalArgumentException("인증 토큰이 존재하지 않습니다.");
 		}
-		return CustomResponse.okResponseEntity(tokenResponse);
 	}
 
 	@Operation(
@@ -78,24 +86,6 @@ public class AuthController {
 		System.out.println(isAuthenticated);
 		LoginCheckResponse response = new LoginCheckResponse(isAuthenticated);
 		return CustomResponse.okResponseEntity(response);
-	}
-
-	@Operation(
-		summary = "쿠키제거로 로그아웃 (By http-only)", description = ""
-	)
-	@PostMapping("/auth/logout")
-	public ResponseEntity<CustomResponse<Void>> logout(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		// 쿠키 제거 (예: SESSION 쿠키)
-		Cookie cookie = new Cookie("SESSION", null);
-		cookie.setPath("/");
-		cookie.setMaxAge(0);
-		cookie.setHttpOnly(true);
-		response.addCookie(cookie);
-		return CustomResponse.okResponseEntity();
 	}
 
 	record LoginCheckResponse(Boolean loggedIn) {

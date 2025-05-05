@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.RevokeTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;
+import com.chzzkzzal.core.security.dto.SignInResponse;
 import com.chzzkzzal.member.domain.MemberService;
 import com.chzzkzzal.member.dto.ChzzkTokenResponse;
 import com.chzzkzzal.member.dto.ChzzkUserResponse;
@@ -71,10 +72,11 @@ public class ChzzkOAuthController {
 		String accessToken = tokenResponse.accessToken();
 		ChzzkUserResponse userInfo = userHttpClient.me(accessToken);
 
-		String jwtToken = memberService.signin(userInfo.channelId(), userInfo.channelName());
+		SignInResponse signInResponse = memberService.signin(userInfo.channelId(), userInfo.channelName());
 
 		// JWT 토큰을 HTTP-only 쿠키로 설정
-		ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, jwtToken)
+		ResponseCookie cookie = ResponseCookie
+			.from(COOKIE_NAME, signInResponse.accessToken())
 			.domain(COOKIE_DOMAIN)
 			.httpOnly(true)
 			.secure(true) // 로컬호스트에서는 false, 프로덕션에서는 true로 설정
@@ -85,8 +87,21 @@ public class ChzzkOAuthController {
 
 		response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
+		// JWT 토큰을 HTTP-only 쿠키로 설정
+		ResponseCookie refreshTokenCookie = ResponseCookie
+			.from("Refresh-Token", signInResponse.refreshToken())
+			.domain(COOKIE_DOMAIN)
+			.httpOnly(true)
+			.secure(true) // 로컬호스트에서는 false, 프로덕션에서는 true로 설정
+			.path(COOKIE_PATH)
+			.maxAge(Duration.ofDays(COOKIE_DAYS))
+			.sameSite(COOKIE_SAME_SITE) // CSRF 보호
+			.build();
+		response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+
 		return ResponseEntity.status(HttpStatus.FOUND)
 			.header(HttpHeaders.SET_COOKIE, cookie.toString())
+			.header("Refresh-Token", "Bearer " + signInResponse.refreshToken())
 			.location(URI.create(FRONT_DOMAIN))
 			.build();
 	}

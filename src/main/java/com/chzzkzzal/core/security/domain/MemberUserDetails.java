@@ -9,12 +9,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.chzzkzzal.member.domain.Member;
 
+import lombok.Getter;
+
+@Getter
 public class MemberUserDetails implements UserDetails {
 
 	private final Member member;
+	private final Long memberId;
 
 	public MemberUserDetails(Member member) {
 		this.member = member;
+		this.memberId = member.getId();
 	}
 
 	// 권한 목록
