@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chzzkzzal.core.auth.application.dto.TokenResult;
 import com.chzzkzzal.core.auth.domain.RefreshToken;
-import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
+import com.chzzkzzal.core.auth.domain.repository.RefreshTokenRepository;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenInjector;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
