@@ -19,7 +19,7 @@ public class CustomResponse<T> {
 	private final String code;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL) // 결과값이 공백일 경우 json에 포함하지 않도록
-	private T result;
+	private final T result;
 
 	@Override
 	public String toString() {
@@ -37,56 +37,43 @@ public class CustomResponse<T> {
 			+ '}';
 	}
 
-	public static <T> ResponseEntity<CustomResponse<T>> okResponseEntity(T result) {
-		return ResponseEntity.ok(new CustomResponse<>(result));
-	}
 
-	public static <T> ResponseEntity<CustomResponse<T>> okResponseEntity() {
-		return ResponseEntity.ok(new CustomResponse<>());
-	}
+	/* ==== 정적 팩토리 ==== */
 
 	public static <T> CustomResponse<T> ok() {
-		return new CustomResponse<>();
+		return success(null);
+	}
+
+	public static <T> CustomResponse<T> success(T result) {
+		var code = GlobalErrorCode.SUCCESS;
+		return new CustomResponse<>(code.getStatus(), code.getCode(), code.getMessage(), result);
+	}
+
+	public static <T> ResponseEntity<CustomResponse<T>> okResponseEntity(T result) {
+		return ResponseEntity.ok(success(result));
+	}
+
+	public static ResponseEntity<CustomResponse<Void>> okResponseEntity() {
+		return ResponseEntity.ok(ok());
 	}
 
 	public static CustomResponse<Void> error(ErrorCode errorCode) {
-		return new CustomResponse<>(errorCode);
+		return new CustomResponse<>(errorCode.getStatus(), errorCode.getCode(), errorCode.getMessage(), null);
 	}
 
-	public static CustomResponse<Void> error(ErrorCode errorCode, String message) {
-		return new CustomResponse<>(errorCode, message);
+	public static CustomResponse<Void> error(ErrorCode errorCode, String overrideMessage) {
+		return new CustomResponse<>(errorCode.getStatus(), errorCode.getCode(), overrideMessage, null);
 	}
 
-	// 요청에 성공한 경우
-	private CustomResponse() {
-		this.status = GlobalErrorCode.SUCCESS.getStatus();
-		this.message = GlobalErrorCode.SUCCESS.getMessage();
-		this.code = GlobalErrorCode.SUCCESS.getCode();
-	}
-
-	public CustomResponse(T result) {
-		Objects.requireNonNull(result, "Result must not be null");
-		this.status = GlobalErrorCode.SUCCESS.getStatus();
-		this.message = GlobalErrorCode.SUCCESS.getMessage();
-		this.code = GlobalErrorCode.SUCCESS.getCode();
-		this.result = result;
-	}
-
-	// 요청에 실패한 경우
-	private CustomResponse(ErrorCode errorCode) {
-		Objects.requireNonNull(errorCode, "Global error code must not be null");
-		this.status = errorCode.getStatus();
-		this.message = errorCode.getMessage();
-		this.code = errorCode.getCode();
-	}
-
-	// GlobalControllerAdvice에서 오류 설정
-	private CustomResponse(ErrorCode errorCode, String message) {
-		Objects.requireNonNull(errorCode, "Result must not be null");
+	/* ==== 생성자 ==== */
+	private CustomResponse(HttpStatus status, String code, String message, T result) {
+		Objects.requireNonNull(status, "HttpStatus must not be null");
+		Objects.requireNonNull(code, "Code must not be null");
 		Objects.requireNonNull(message, "Message must not be null");
 
-		this.status = errorCode.getStatus();
+		this.status = status;
+		this.code = code;
 		this.message = message;
-		this.code = errorCode.getCode();
+		this.result = result;
 	}
 }
