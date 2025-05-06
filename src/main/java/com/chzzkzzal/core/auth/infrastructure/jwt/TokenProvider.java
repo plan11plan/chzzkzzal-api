@@ -7,15 +7,9 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.common.properties.TokenProperties;
-import com.chzzkzzal.core.auth.domain.MemberUserDetails;
-import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
-import com.chzzkzzal.core.auth.domain.service.MemberUserDetailService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -26,13 +20,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TokenProvider {
 	private final TokenProperties tokenProperties;
-	private final MemberUserDetailService memberUserDetailService;
-	private final RefreshTokenRepository refreshTokenRepository;
-	private final ObjectMapper objectMapper;
-	private final long reissueLimit = 10;
-
-	// 예시: 1일
-	private static final long EXPIRATION_MS = 1000 * 60 * 60 * 24;
 
 	public String createAccessToken(String memberId) {
 		long currentTimeMillis = System.currentTimeMillis();
@@ -49,27 +36,6 @@ public class TokenProvider {
 			.signWith(secretKey)
 			.compact();
 	}
-
-	//	@Transactional
-	//	public String recreateAccessToken(String oldAccessToken) throws JsonProcessingException {
-	//		String subject = decodeJwtPayloadSubject(oldAccessToken);
-	//		refreshTokenRepository.findByMemberIdAndReissueCountLessThan(UUID.fromString(subject.split(":")[0]),
-	//				reissueLimit)
-	//			.ifPresentOrElse(
-	//				RefreshToken::increaseReissueCount,
-	//				() -> {
-	//					throw new ExpiredJwtException(null, null, "Refresh token expired.");
-	//				}
-	//			);
-	//		return createAccessToken(subject);
-	//	}
-	//
-	//	private String decodeJwtPayloadSubject(String oldAccessToken) throws JsonProcessingException {
-	//		return objectMapper.readValue(
-	//			new String(Base64.getDecoder().decode(oldAccessToken.split("\\.")[1]), StandardCharsets.UTF_8),
-	//			Map.class
-	//		).get("sub").toString();
-	//	}
 
 	/**
 	 * 리프레시 토큰은 사용자와 관련된 정보를 전혀 담지 않을 것이기 때문에 subject는 따로 설정하지 않고 발급자와 발급시간, 만료시간만 설정한다.
@@ -88,19 +54,7 @@ public class TokenProvider {
 			.compact();
 	}
 
-	public Authentication getAuthentication(String token) {
-		Claims claims = getClaims(token);
-		String channelId = claims.getSubject();
-
-		MemberUserDetails userDetails = memberUserDetailService.loadUserByUsername(channelId);
-		return new UsernamePasswordAuthenticationToken(
-			userDetails,
-			token,
-			userDetails.getAuthorities()
-		);
-	}
-
-	private Claims getClaims(String token) {
+	public Claims getClaims(String token) {
 		return Jwts.parser()
 			.verifyWith(this.getSigningKey())
 			.build()
