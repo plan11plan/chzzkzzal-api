@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.application.usecase.impl;
+package com.chzzkzzal.core.auth.application.impl;
 
 import org.springframework.stereotype.Service;
 

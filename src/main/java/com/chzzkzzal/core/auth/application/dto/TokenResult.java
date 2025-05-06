@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.application.jwt;
+package com.chzzkzzal.core.auth.application.dto;
 
 public record TokenResult(
 	String refreshToken,

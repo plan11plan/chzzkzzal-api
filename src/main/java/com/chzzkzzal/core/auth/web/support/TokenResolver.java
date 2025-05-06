@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.infrastructure.jwt;
+package com.chzzkzzal.core.auth.web.support;
 
 import static com.chzzkzzal.core.auth.domain.TokenName.*;
 import static org.springframework.http.HttpHeaders.*;

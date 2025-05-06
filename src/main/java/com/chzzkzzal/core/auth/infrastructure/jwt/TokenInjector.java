@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.application.jwt;
+package com.chzzkzzal.core.auth.infrastructure.jwt;
 
 import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.common.properties.SecurityProperties;
 import com.chzzkzzal.common.properties.TokenProperties;
+import com.chzzkzzal.core.auth.application.dto.TokenResult;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
