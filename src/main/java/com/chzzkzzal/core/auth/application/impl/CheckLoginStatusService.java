@@ -1,5 +1,7 @@
 package com.chzzkzzal.core.auth.application.impl;
 
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
+
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.auth.application.usecase.CheckLoginStatusUseCase;
@@ -18,7 +20,10 @@ public class CheckLoginStatusService implements CheckLoginStatusUseCase {
 
 	@Override
 	public LoginCheckResponse execute(final HttpServletRequest request) {
-		String jwtToken = tokenResolver.extractCookie(request);
+		String jwtToken = tokenResolver
+			.resolveFromCookie(request, SESSION.name())
+			.orElseThrow(IllegalAccessError::new);
+
 		return checkLoginStatus(jwtToken);
 	}
 

@@ -13,8 +13,8 @@ import com.chzzkzzal.core.auth.domain.RefreshToken;
 import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenInjector;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
 import com.chzzkzzal.core.auth.web.exception.RefreshTokenInvalidException;
-import com.chzzkzzal.core.auth.web.support.TokenResolver;
 import com.chzzkzzal.member.domain.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
