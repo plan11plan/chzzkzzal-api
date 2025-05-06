@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.common.properties.TokenProperties;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
@@ -51,13 +50,4 @@ public class TokenProvider {
 			.compact();
 	}
 
-	public Claims getClaims(String token) {
-		SecretKey signingKey = jwtSigningKeyProvider.getSigningKey();
-
-		return Jwts.parser()
-			.verifyWith(signingKey)
-			.build()
-			.parseSignedClaims(token)
-			.getPayload();
-	}
 }
