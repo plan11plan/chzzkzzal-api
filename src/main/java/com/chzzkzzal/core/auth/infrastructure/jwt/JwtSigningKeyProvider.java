@@ -8,6 +8,7 @@ import com.chzzkzzal.common.properties.TokenProperties;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -15,9 +16,15 @@ import lombok.RequiredArgsConstructor;
 public class JwtSigningKeyProvider {
 
 	private final TokenProperties tokenProperties;
+	private SecretKey cachedSecretKey;
+
+	@PostConstruct
+	private void init() {
+		byte[] keyBytes = Decoders.BASE64.decode(tokenProperties.secretKey());
+		this.cachedSecretKey = Keys.hmacShaKeyFor(keyBytes);
+	}
 
 	public SecretKey getSigningKey() {
-		byte[] keyBytes = Decoders.BASE64.decode(tokenProperties.secretKey());
-		return Keys.hmacShaKeyFor(keyBytes);
+		return this.cachedSecretKey;
 	}
 }
