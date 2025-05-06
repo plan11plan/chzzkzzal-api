@@ -50,7 +50,7 @@ public class SecurityConfig {
 
 			// 폼 로그인 사용 안 함
 			.formLogin(FormLoginConfigurer::disable)
-
+			.logout(logout -> logout.disable())
 			// 커스텀 필터 등록
 			.addFilterBefore(customOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
