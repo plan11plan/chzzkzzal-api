@@ -26,7 +26,12 @@ public class ZzalDetailServiceImpl implements ZzalDetailService {
 		Long uploaderId = zzal.getMember().getId();
 		Member member = memberLoader.loadMember(uploaderId);
 
-		Events.raise(new ZzalViewedEvent(zzalId, request, member.getId()));
+		Events.raise(
+			new ZzalViewedEvent(
+				zzalId,
+				request,
+				member.getId())
+		);
 		return ZzalDetailResponse.toResponse(zzal, member);
 	}
 

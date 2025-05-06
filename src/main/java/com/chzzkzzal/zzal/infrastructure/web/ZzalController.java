@@ -48,7 +48,8 @@ public class ZzalController {
 				"- Body @Validation 추가"
 	)
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<CustomResponse<Long>> upload(@RequestPart(value = "file") MultipartFile multipartFile,
+	public ResponseEntity<CustomResponse<Long>> upload(
+		@RequestPart(value = "file") MultipartFile multipartFile,
 		@RequestPart(value = "zzalCreateRequest") ZzalCreateRequest zzalCreateRequest,
 		@AuthenticationPrincipal MemberUserDetails memberUserDetails) {
 
@@ -81,7 +82,8 @@ public class ZzalController {
 	)
 	@GetMapping("{zzalId}")
 	public ResponseEntity<CustomResponse<ZzalDetailResponse>> viewDetail(
-		@PathVariable("zzalId") Long zzalId, HttpServletRequest request) {
+		@PathVariable("zzalId") Long zzalId,
+		HttpServletRequest request) {
 
 		// Long memberId = Long.valueOf(1);
 		ZzalDetailResponse response = zzalDetailService.getZZal(zzalId, request);

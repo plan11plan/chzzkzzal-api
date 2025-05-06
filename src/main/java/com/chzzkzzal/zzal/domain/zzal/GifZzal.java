@@ -47,23 +47,4 @@ public class GifZzal extends Zzal {
 		return create(member, metadata, title, url);
 	}
 
-	@Override
-	public Zzal upload() {
-		return null;
-	}
-
-	@Override
-	public void bookmark() {
-
-	}
-
-	@Override
-	public void view() {
-
-	}
-
-	@Override
-	public int countTotalView() {
-		return 0;
-	}
 }
