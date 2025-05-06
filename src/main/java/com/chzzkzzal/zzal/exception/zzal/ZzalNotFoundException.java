@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal.exception.zzal;
 
-import com.chzzkzzal.core.common.error.GlobalException;
+import com.chzzkzzal.common.error.GlobalException;
 
 public class ZzalNotFoundException extends GlobalException {
 	public ZzalNotFoundException() {

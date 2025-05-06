@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal.domain.zzal;
 
-import com.chzzkzzal.core.common.domain.BaseTimeEntity;
+import com.chzzkzzal.common.domain.BaseTimeEntity;
 import com.chzzkzzal.member.domain.Member;
 
 import jakarta.persistence.DiscriminatorColumn;

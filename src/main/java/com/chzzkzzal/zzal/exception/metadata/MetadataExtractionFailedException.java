@@ -1,7 +1,7 @@
 // com/chzzkzzal/zzal/domain/exception/MetadataExtractionFailedException.java
 package com.chzzkzzal.zzal.exception.metadata;
 
-import com.chzzkzzal.core.common.error.GlobalException;
+import com.chzzkzzal.common.error.GlobalException;
 
 public class MetadataExtractionFailedException extends GlobalException {
 	public MetadataExtractionFailedException() {

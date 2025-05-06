@@ -2,7 +2,7 @@ package com.chzzkzzal.core.auth.web.exception;
 
 import static com.chzzkzzal.core.auth.web.exception.AuthExceptionCode.*;
 
-import com.chzzkzzal.core.common.error.GlobalException;
+import com.chzzkzzal.common.error.GlobalException;
 
 public class RefreshTokenInvalidException extends GlobalException {
 	public RefreshTokenInvalidException() {

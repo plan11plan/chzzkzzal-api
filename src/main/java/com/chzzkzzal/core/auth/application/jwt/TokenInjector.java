@@ -4,8 +4,8 @@ import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
 import org.springframework.stereotype.Service;
 
-import com.chzzkzzal.core.common.properties.SecurityProperties;
-import com.chzzkzzal.core.common.properties.TokenProperties;
+import com.chzzkzzal.common.properties.SecurityProperties;
+import com.chzzkzzal.common.properties.TokenProperties;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;

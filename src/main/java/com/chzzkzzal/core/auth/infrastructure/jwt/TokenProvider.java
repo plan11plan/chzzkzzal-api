@@ -11,10 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import com.chzzkzzal.common.properties.TokenProperties;
 import com.chzzkzzal.core.auth.domain.MemberUserDetails;
 import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
 import com.chzzkzzal.core.auth.domain.service.MemberUserDetailService;
-import com.chzzkzzal.core.common.properties.TokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;

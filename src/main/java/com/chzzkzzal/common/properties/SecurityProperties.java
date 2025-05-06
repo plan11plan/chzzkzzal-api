@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common.properties;
+package com.chzzkzzal.common.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;

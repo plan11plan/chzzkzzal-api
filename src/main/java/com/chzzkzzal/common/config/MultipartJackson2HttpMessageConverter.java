@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common.config;
+package com.chzzkzzal.common.config;
 
 import java.lang.reflect.Type;
 

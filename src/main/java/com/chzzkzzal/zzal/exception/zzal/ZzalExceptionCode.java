@@ -2,7 +2,7 @@ package com.chzzkzzal.zzal.exception.zzal;
 
 import org.springframework.http.HttpStatus;
 
-import com.chzzkzzal.core.common.error.ErrorCode;
+import com.chzzkzzal.common.error.ErrorCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

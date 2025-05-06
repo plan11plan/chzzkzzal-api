@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chzzkzzal.common.error.CustomResponse;
 import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
 import com.chzzkzzal.core.auth.facade.AuthFacade;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
-import com.chzzkzzal.core.common.error.CustomResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

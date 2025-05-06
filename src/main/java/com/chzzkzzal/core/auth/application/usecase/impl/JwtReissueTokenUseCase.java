@@ -2,11 +2,11 @@ package com.chzzkzzal.core.auth.application.usecase.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.chzzkzzal.common.properties.TokenProperties;
 import com.chzzkzzal.core.auth.application.usecase.ReissueTokenUseCase;
 import com.chzzkzzal.core.auth.domain.service.AccessTokenService;
 import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
-import com.chzzkzzal.core.common.properties.TokenProperties;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

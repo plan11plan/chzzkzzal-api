@@ -1,6 +1,6 @@
 package com.chzzkzzal.core.auth.web.response;
 
-import com.chzzkzzal.core.common.properties.TokenProperties;
+import com.chzzkzzal.common.properties.TokenProperties;
 
 import lombok.Builder;
 

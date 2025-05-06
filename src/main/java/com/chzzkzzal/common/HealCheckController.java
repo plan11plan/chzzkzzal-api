@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common;
+package com.chzzkzzal.common;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

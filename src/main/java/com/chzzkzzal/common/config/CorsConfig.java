@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common.config;
+package com.chzzkzzal.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.chzzkzzal.core.common.properties.FrontProperties;
+import com.chzzkzzal.common.properties.FrontProperties;
 
 import lombok.RequiredArgsConstructor;
 

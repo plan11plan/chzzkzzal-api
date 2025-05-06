@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common.error;
+package com.chzzkzzal.common.error;
 
 import java.nio.file.AccessDeniedException;
 import java.util.Objects;

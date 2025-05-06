@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal.exception.metadata;
 
-import com.chzzkzzal.core.common.error.GlobalException;
+import com.chzzkzzal.common.error.GlobalException;
 
 public class MetadataContentTypeNullException extends GlobalException {
 	public MetadataContentTypeNullException() {

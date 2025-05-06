@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.common.config;
+package com.chzzkzzal.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.chzzkzzal.core.common.properties.S3Properties;
+import com.chzzkzzal.common.properties.S3Properties;
 
 import lombok.RequiredArgsConstructor;
 
