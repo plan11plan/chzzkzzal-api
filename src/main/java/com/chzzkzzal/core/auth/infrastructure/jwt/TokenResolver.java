@@ -12,8 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * 역할: HTTP 요청으로부터 AccessToken, RefreshToken 추출 (Header + Cookie)
- * 부가 기능: JWT에서 subject 추출 (토큰 파싱)
+ * 역할: HTTP 요청으로부터 AccessToken, RefreshToken 추출 (Cookie)
  * resolve: 찾아내다
  */
 @Component

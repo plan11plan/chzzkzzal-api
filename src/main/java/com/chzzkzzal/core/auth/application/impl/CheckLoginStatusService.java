@@ -5,18 +5,20 @@ import static com.chzzkzzal.core.auth.domain.TokenName.*;
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.auth.application.usecase.CheckLoginStatusUseCase;
-import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenValidator;
 import com.chzzkzzal.core.auth.web.response.LoginCheckResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CheckLoginStatusService implements CheckLoginStatusUseCase {
-	private final TokenProvider tokenProvider;
 	private final TokenResolver tokenResolver;
+	private final TokenValidator tokenValidator;
 
 	@Override
 	public LoginCheckResponse execute(final HttpServletRequest request) {
@@ -24,19 +26,11 @@ public class CheckLoginStatusService implements CheckLoginStatusUseCase {
 			.resolveFromCookie(request, SESSION.name())
 			.orElseThrow(IllegalAccessError::new);
 
-		return checkLoginStatus(jwtToken);
-	}
+		boolean isAuthenticated = tokenValidator.validateToken(jwtToken);
+		log.info("로그인 상태 : {}", isAuthenticated);
 
-	private LoginCheckResponse checkLoginStatus(final String jwtToken) {
-		boolean isAuthenticated = false;
-		System.out.println(jwtToken);
-		if (jwtToken != null) {
-			isAuthenticated = tokenProvider.validateToken(jwtToken); // JWT 검증 로직
-		}
-		System.out.println("로그인 여부 확인");
-		System.out.println(isAuthenticated);
-		LoginCheckResponse response = new LoginCheckResponse(isAuthenticated);
-		return response;
+		return new LoginCheckResponse(isAuthenticated);
 	}
+	
 }
 

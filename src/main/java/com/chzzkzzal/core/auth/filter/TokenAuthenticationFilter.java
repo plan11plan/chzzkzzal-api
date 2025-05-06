@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenValidator;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class TokenAuthenticationFilter implements AuthenticationFilter {
 
 	private final TokenProvider tokenProvider;
+	private final TokenValidator tokenValidator;
 
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -38,7 +40,7 @@ public class TokenAuthenticationFilter implements AuthenticationFilter {
 		}
 		System.out.println("Extracted token: " + token); // 토큰이 올바르게 추출되었는지 확인
 
-		if (tokenProvider.validateToken(token)) {
+		if (tokenValidator.validateToken(token)) {
 			System.out.println("Token validated successfully"); // 토큰 검증 성공 확인
 			Authentication authentication = tokenProvider.getAuthentication(token);
 			System.out.println("Authentication principal: " + authentication.getPrincipal()); // 인증 객체의 principal 확인

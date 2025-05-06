@@ -50,22 +50,6 @@ public class TokenProvider {
 			.compact();
 	}
 
-	public String createAccessToken(Long memberId) {
-		long currentTimeMillis = System.currentTimeMillis();
-		Date now = new Date(currentTimeMillis);
-
-		Date expiry = new Date(currentTimeMillis + tokenProperties.expirationTime().accessToken() * 1000);
-
-		SecretKey secretKey = getSigningKey();
-
-		return Jwts.builder()
-			.subject(String.valueOf(memberId))
-			.issuedAt(now)
-			.expiration(expiry)
-			.signWith(secretKey)
-			.compact();
-	}
-
 	//	@Transactional
 	//	public String recreateAccessToken(String oldAccessToken) throws JsonProcessingException {
 	//		String subject = decodeJwtPayloadSubject(oldAccessToken);
@@ -102,15 +86,6 @@ public class TokenProvider {
 				Date.from(Instant.now().plus(tokenProperties.expirationTime().refreshTokenHours(), ChronoUnit.HOURS)))
 			.signWith(secretKey)
 			.compact();
-	}
-
-	public boolean validateToken(String token) {
-		try {
-			Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
 	}
 
 	public Authentication getAuthentication(String token) {
