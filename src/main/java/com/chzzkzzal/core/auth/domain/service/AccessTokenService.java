@@ -12,7 +12,7 @@ public class AccessTokenService {
 	private final TokenProvider tokenProvider;
 
 	public String issueAccessToken(String memberId) {
-		String accessToken = tokenProvider.createAccessToken(memberId);
+		String accessToken = tokenProvider.generateAccessToken(memberId);
 		return accessToken;
 	}
 

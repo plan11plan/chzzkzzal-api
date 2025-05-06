@@ -65,7 +65,7 @@ public class RefreshTokenService {
 
 	@Transactional
 	public String issueRefreshToken(Member member) {
-		String refreshToken = tokenProvider.generateRefreshToken();
+		String refreshToken = tokenProvider.generateRefreshToken(String.valueOf(member.getId()));
 		saveOrUpdateRefreshToken(member, refreshToken);
 		return refreshToken;
 	}
@@ -88,7 +88,7 @@ public class RefreshTokenService {
 	}
 
 	private String rotate(RefreshToken refreshToken) {
-		String reissuedToken = tokenProvider.generateRefreshToken();
+		String reissuedToken = tokenProvider.generateRefreshToken(refreshToken.getExternalId());
 		RefreshToken rotatedToken = refreshToken.rotate(reissuedToken);
 		refreshTokenRepository.save(rotatedToken);
 		return reissuedToken;
