@@ -29,7 +29,6 @@ public class RefreshTokenService {
 	private final TokenProvider tokenProvider;
 	private final TokenInjector tokenInjector;
 	private final TokenResolver tokenResolver;
-	private final AccessTokenService accessTokenService;
 	private final RefreshTokenRepository refreshTokenRepository;
 
 	/**

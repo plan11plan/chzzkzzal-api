@@ -1,11 +1,10 @@
 package com.chzzkzzal.member.domain;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.core.auth.domain.service.AccessTokenService;
 import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.web.response.SignInResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService {
 	private final MemberRepository memberRepository;
-	private final PasswordEncoder passwordEncoder;
 	private final RefreshTokenService refreshTokenService;
-	private final AccessTokenService accessTokenService;
+	private final TokenProvider tokenProvider;
 
 	/**
 	 * 신규 회원 생성
@@ -26,7 +24,7 @@ public class MemberService {
 	@Transactional
 	public SignInResponse signin(String channelId, String channelName) {
 		Member member = findOrCreate(channelId, channelName);
-		String accessToken = accessTokenService.issueAccessToken(String.valueOf(member.getId()));
+		String accessToken = tokenProvider.generateAccessToken(String.valueOf(member.getId()));
 		String refreshToken = refreshTokenService.issueRefreshToken(member);
 		return new SignInResponse(member.getChannelName(), accessToken, refreshToken);
 	}

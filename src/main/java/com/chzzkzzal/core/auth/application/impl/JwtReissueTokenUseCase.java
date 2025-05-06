@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.common.properties.TokenProperties;
 import com.chzzkzzal.core.auth.application.usecase.ReissueTokenUseCase;
-import com.chzzkzzal.core.auth.domain.service.AccessTokenService;
 import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtReissueTokenUseCase implements ReissueTokenUseCase {
 	private final RefreshTokenService refreshTokenService;
 	private final TokenProperties tokenProperties;
-	private final AccessTokenService accessTokenService;
+	private final TokenProvider tokenProvider;
 
 	@Override
 	public AccessTokenResponse execute(final HttpServletRequest request, final HttpServletResponse response) {
@@ -31,7 +31,7 @@ public class JwtReissueTokenUseCase implements ReissueTokenUseCase {
 	}
 
 	private AccessTokenResponse createAccessTokenResponse(String externalId) {
-		String accessToken = accessTokenService.issueAccessToken(externalId);
+		String accessToken = tokenProvider.generateAccessToken(externalId);
 		return AccessTokenResponse.of(accessToken, tokenProperties);
 	}
 
