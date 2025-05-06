@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CheckLoginStatusService implements CheckLoginStatusUseCase {
+public class JwtCheckLoginStatusUseCase implements CheckLoginStatusUseCase {
 	private final TokenResolver tokenResolver;
 	private final TokenValidator tokenValidator;
 

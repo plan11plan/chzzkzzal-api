@@ -105,7 +105,7 @@ public class RefreshTokenService {
 	/**
 	 * 1) Refresh Token 검증
 	 * 2) channelId 추출
-	 * 3) DB 조회
+	 * 3) DB 조회링
 	 * 4) 새 Access Token 발급
 	 */
 	public RefreshToken getRefreshTokenByValue(String value) {
