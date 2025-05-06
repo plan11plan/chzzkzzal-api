@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.core.auth.domain.MemberUserDetails;
-import com.chzzkzzal.core.auth.dto.SignInResponse;
+import com.chzzkzzal.core.auth.web.response.SignInResponse;
 import com.chzzkzzal.member.domain.Member;
 import com.chzzkzzal.member.domain.MemberService;
 

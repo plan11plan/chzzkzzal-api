@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chzzkzzal.core.auth.dto.SignInResponse;
+import com.chzzkzzal.core.auth.web.response.SignInResponse;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.RevokeTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;

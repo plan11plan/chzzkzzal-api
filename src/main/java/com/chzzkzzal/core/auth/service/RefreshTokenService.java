@@ -8,13 +8,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chzzkzzal.core.auth.application.jwt.TokenInjector;
+import com.chzzkzzal.core.auth.application.jwt.TokenResult;
 import com.chzzkzzal.core.auth.domain.RefreshToken;
 import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
-import com.chzzkzzal.core.auth.exception.RefreshTokenInvalidException;
-import com.chzzkzzal.core.auth.infrastructure.jwt.TokenInjector;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
-import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResult;
+import com.chzzkzzal.core.auth.web.exception.RefreshTokenInvalidException;
 import com.chzzkzzal.member.domain.Member;
 
 import jakarta.servlet.http.HttpServletRequest;

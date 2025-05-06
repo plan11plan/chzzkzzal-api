@@ -4,9 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.core.auth.dto.SignInResponse;
 import com.chzzkzzal.core.auth.service.AccessTokenService;
 import com.chzzkzzal.core.auth.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.web.response.SignInResponse;
 
 import lombok.RequiredArgsConstructor;
 

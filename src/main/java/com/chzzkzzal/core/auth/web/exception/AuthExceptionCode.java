@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.exception;
+package com.chzzkzzal.core.auth.web.exception;
 
 import static org.springframework.http.HttpStatus.*;
 

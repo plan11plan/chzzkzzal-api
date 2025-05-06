@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.core.auth.application.AuthService;
-import com.chzzkzzal.core.auth.dto.AccessTokenResponse;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 import com.chzzkzzal.core.auth.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.common.error.CustomResponse;
 
 import io.swagger.v3.oas.annotations.Operation;

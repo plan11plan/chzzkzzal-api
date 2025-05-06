@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.infrastructure.filter;
+package com.chzzkzzal.core.auth.filter;
 
 import java.io.IOException;
 

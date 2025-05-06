@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.dto;
+package com.chzzkzzal.core.auth.web.response;
 
 import com.chzzkzzal.core.common.properties.TokenProperties;
 
