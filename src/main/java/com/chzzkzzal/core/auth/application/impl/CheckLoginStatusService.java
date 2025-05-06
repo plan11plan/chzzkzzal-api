@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.auth.application.usecase.CheckLoginStatusUseCase;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
 import com.chzzkzzal.core.auth.web.response.LoginCheckResponse;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -14,23 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CheckLoginStatusService implements CheckLoginStatusUseCase {
 	private final TokenProvider tokenProvider;
+	private final TokenResolver tokenResolver;
 
 	@Override
 	public LoginCheckResponse execute(final HttpServletRequest request) {
-		// 1. 요청에서 쿠키 추출
-		Cookie[] cookies = request.getCookies();
-		String jwtToken = null;
+		String jwtToken = tokenResolver.extractCookie(request);
+		return checkLoginStatus(jwtToken);
+	}
 
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if ("SESSION".equals(cookie.getName())) {
-					jwtToken = cookie.getValue();
-					break;
-				}
-			}
-		}
-
-		// 2. 토큰 검증
+	private LoginCheckResponse checkLoginStatus(final String jwtToken) {
 		boolean isAuthenticated = false;
 		System.out.println(jwtToken);
 		if (jwtToken != null) {
