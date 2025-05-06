@@ -21,6 +21,7 @@ public enum AuthExceptionCode implements ErrorCode {
 
 	// 토큰 관련
 	REFRESH_TOKEN_INVALID(UNAUTHORIZED, "AUTH_300", "리프레시 토큰이 유효하지 않거나 만료되었습니다."),
+	INVALID_JWT_SIGNATURE(UNAUTHORIZED, "AUTH_800", "JWT 서명이 유효하지 않습니다."),
 
 	;
 

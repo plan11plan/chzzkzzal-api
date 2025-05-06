@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.core.auth.application.dto.TokenResult;
 import com.chzzkzzal.core.auth.domain.RefreshToken;
+import com.chzzkzzal.core.auth.domain.dto.TokenResult;
 import com.chzzkzzal.core.auth.domain.repository.RefreshTokenRepository;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenInjector;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;

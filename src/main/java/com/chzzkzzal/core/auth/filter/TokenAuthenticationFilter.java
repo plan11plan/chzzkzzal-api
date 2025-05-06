@@ -7,60 +7,45 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.core.auth.application.authenticator.TokenAuthenticator;
-import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.domain.TokenName;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenValidator;
+import com.chzzkzzal.core.auth.web.exception.MissingJwtTokenException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter implements AuthenticationFilter {
 
-	private final TokenProvider tokenProvider;
 	private final TokenValidator tokenValidator;
 	private final TokenAuthenticator tokenAuthenticator;
+	private final TokenResolver tokenResolver;
 
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 		throws ServletException, IOException {
-		String token = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if ("SESSION".equals(cookie.getName())) {
-					String sessionValue = cookie.getValue();
-					token = sessionValue;
-					System.out.println("찾았다 쿠키! : " + sessionValue);
-					// 세션 값 처리
-				}
-			}
-		}
-		System.out.println("Extracted token: " + token); // 토큰이 올바르게 추출되었는지 확인
 
-		if (tokenValidator.validateToken(token)) {
-			System.out.println("Token validated successfully"); // 토큰 검증 성공 확인
-			Authentication authentication = tokenAuthenticator.authenticate(token);
-			System.out.println("Authentication principal: " + authentication.getPrincipal()); // 인증 객체의 principal 확인
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		} else {
-			System.out.println("Token validation failed"); // 토큰 검증 실패 확인
-		}
+		String token = tokenResolver
+			.resolveFromCookie(request, TokenName.SESSION.name())
+			.orElseThrow(MissingJwtTokenException::new);
+
+		log.info("Extracted token: {}", token);
+
+		tokenValidator.validateToken(token);
+
+		Authentication authentication = tokenAuthenticator.authenticate(token);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		log.info("Authentication principal: {}", authentication.getPrincipal());
+		log.info("Token validated successfully");
 
 		filterChain.doFilter(request, response);
 	}
-
-	// private String extractAccessToken(HttpServletRequest request) {
-	// 	String authHeader = request.getHeader(HEADER_AUTHORIZATION);
-	//
-	// 	if (authHeader != null && authHeader.startsWith(TOKEN_PREFIX)) {
-	// 		return authHeader.substring(TOKEN_PREFIX.length());
-	// 	}
-	// 	return null;
-	// }
 
 }

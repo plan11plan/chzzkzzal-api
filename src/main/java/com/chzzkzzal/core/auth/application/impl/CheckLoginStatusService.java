@@ -27,7 +27,7 @@ public class CheckLoginStatusService implements CheckLoginStatusUseCase {
 			.resolveFromCookie(request, SESSION.name())
 			.orElseThrow(MissingJwtTokenException::new);
 
-		boolean isAuthenticated = tokenValidator.validateToken(jwtToken);
+		boolean isAuthenticated = tokenValidator.isValid(jwtToken);
 		log.info("로그인 상태 : {}", isAuthenticated);
 
 		return new LoginCheckResponse(isAuthenticated);
