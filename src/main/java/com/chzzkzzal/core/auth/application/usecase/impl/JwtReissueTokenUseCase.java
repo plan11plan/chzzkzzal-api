@@ -1,9 +1,10 @@
-package com.chzzkzzal.core.auth.application;
+package com.chzzkzzal.core.auth.application.usecase.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.chzzkzzal.core.auth.service.AccessTokenService;
-import com.chzzkzzal.core.auth.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.application.usecase.ReissueTokenUseCase;
+import com.chzzkzzal.core.auth.domain.service.AccessTokenService;
+import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.common.properties.TokenProperties;
 
@@ -15,22 +16,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class JwtReissueTokenUseCase implements ReissueTokenUseCase {
 	private final RefreshTokenService refreshTokenService;
 	private final TokenProperties tokenProperties;
 	private final AccessTokenService accessTokenService;
 
-	public AccessTokenResponse reissueTokens(HttpServletRequest request, HttpServletResponse response) {
+	@Override
+	public AccessTokenResponse execute(final HttpServletRequest request, final HttpServletResponse response) {
 		String externalId = refreshTokenService.reissueRefreshToken(request, response);
 		AccessTokenResponse accessTokenResponse = createAccessTokenResponse(externalId);
 
 		logSuccessfulReissue(externalId, request.getRemoteAddr());
 		return accessTokenResponse;
-	}
-
-	public void logout(HttpServletRequest request, HttpServletResponse response) {
-		refreshTokenService.expireRefreshToken(request, response);
-		log.info("User {} logged out", maskId(request.getRemoteAddr()));
 	}
 
 	private AccessTokenResponse createAccessTokenResponse(String externalId) {

@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.service;
+package com.chzzkzzal.core.auth.domain.service;
 
 import static com.chzzkzzal.core.auth.domain.TokenName.*;
 

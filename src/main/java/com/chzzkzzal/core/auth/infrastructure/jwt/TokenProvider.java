@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.core.auth.domain.MemberUserDetails;
 import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
-import com.chzzkzzal.core.auth.service.MemberUserDetailService;
+import com.chzzkzzal.core.auth.domain.service.MemberUserDetailService;
 import com.chzzkzzal.core.common.properties.TokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

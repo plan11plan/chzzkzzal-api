@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chzzkzzal.core.auth.application.AuthService;
+import com.chzzkzzal.core.auth.domain.service.RefreshTokenService;
+import com.chzzkzzal.core.auth.facade.AuthFacade;
 import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
-import com.chzzkzzal.core.auth.service.RefreshTokenService;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.common.error.CustomResponse;
 
@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AuthController {
 
-	private final AuthService authService;
+	private final AuthFacade authFacade;
 	private final RefreshTokenService refreshTokenService;
 	private final TokenProvider tokenProvider;
 
@@ -41,7 +41,7 @@ public class AuthController {
 		HttpServletRequest request,
 		HttpServletResponse response
 	) {
-		return new CustomResponse<>(authService.reissueTokens(request, response));
+		return new CustomResponse<>(authFacade.reissueTokens(request, response));
 	}
 
 	@PostMapping("/logout")
@@ -50,7 +50,7 @@ public class AuthController {
 		HttpServletRequest request,
 		HttpServletResponse response
 	) {
-		authService.logout(request, response);
+		authFacade.logout(request, response);
 		return CustomResponse.ok();
 	}
 

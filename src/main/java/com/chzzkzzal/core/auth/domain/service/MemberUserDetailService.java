@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.service;
+package com.chzzkzzal.core.auth.domain.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
