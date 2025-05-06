@@ -1,5 +1,7 @@
 package com.chzzkzzal.core.security.web;
 
+import static com.chzzkzzal.core.security.domain.TokenName.*;
+
 import java.net.URI;
 import java.time.Duration;
 
@@ -89,7 +91,7 @@ public class ChzzkOAuthController {
 
 		// JWT 토큰을 HTTP-only 쿠키로 설정
 		ResponseCookie refreshTokenCookie = ResponseCookie
-			.from("Refresh-Token", signInResponse.refreshToken())
+			.from(REFRESH_TOKEN.name(), signInResponse.refreshToken())
 			.domain(COOKIE_DOMAIN)
 			.httpOnly(true)
 			.secure(true) // 로컬호스트에서는 false, 프로덕션에서는 true로 설정
@@ -101,7 +103,7 @@ public class ChzzkOAuthController {
 
 		return ResponseEntity.status(HttpStatus.FOUND)
 			.header(HttpHeaders.SET_COOKIE, cookie.toString())
-			.header("Refresh-Token", "Bearer " + signInResponse.refreshToken())
+			.header(REFRESH_TOKEN.name(), "Bearer " + signInResponse.refreshToken())
 			.location(URI.create(FRONT_DOMAIN))
 			.build();
 	}

@@ -8,4 +8,6 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Stri
 	//	Optional<RefreshToken> findByMemberIdAndReissueCountLessThan(String id, long count);
 
 	Optional<RefreshToken> findByToken(String token);
+
+	boolean deleteByToken(String token);
 }

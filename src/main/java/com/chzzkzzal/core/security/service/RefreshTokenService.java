@@ -1,7 +1,10 @@
 package com.chzzkzzal.core.security.service;
 
+import static com.chzzkzzal.core.security.domain.TokenName.*;
+
 import java.util.Optional;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,10 +115,37 @@ public class RefreshTokenService {
 			.orElseThrow(IllegalAccessError::new);
 	}
 
+	/**
+	 * 클라이언트의 Refresh Token을 만료(로그아웃) 처리합니다.
+	 *
+	 * 이 메서드는 다음의 로그아웃 절차를 수행합니다:
+	 *
+	 *     요청에서 refresh token 추출 (쿠키 또는 헤더 기반)
+	 *     DB에서 해당 RefreshToken을 삭제하여 서버 측 인증 상태 무효화
+	 *     HttpOnly 쿠키 삭제를 통해 클라이언트 측 토큰 제거
+	 *     현재 쓰레드의 SecurityContext 초기화 (세션 인증 정보 제거)
+	 *     로그 기록 (사용자 IP 포함)
+	 *
+	 * ⚠️ 주의: RefreshToken이 요청에 포함되지 않은 경우 {@link RefreshTokenInvalidException}이 발생합니다.
+	 *
+	 * @param request  클라이언트 요청 객체 (refresh_token 추출 및 IP 확인용)
+	 * @param response 클라이언트 응답 객체 (쿠키 삭제용)
+	 * @throws RefreshTokenInvalidException 요청에 refresh token이 없을 경우 발생
+	 */
+	@Transactional
 	public void expireRefreshToken(HttpServletRequest request, HttpServletResponse response) {
 		Optional<String> tokenString = tokenResolver.resolveRefreshTokenFromRequest(request);
 		isvalidRefreshToken(request, tokenString);
-		tokenInjector.invalidateCookie("REFRESH_TOKEN", response);
+		String token = tokenString.get();
+
+		boolean isDeleted = refreshTokenRepository.deleteByToken(token);
+		if (isDeleted) {
+
+		}
+		tokenInjector.invalidateCookie(REFRESH_TOKEN.name(), response);
+		SecurityContextHolder.clearContext();
+
+		log.info("로그아웃 성공: 리프레시 토큰 제거 및 세션 무효화 완료 (IP: {})", request.getRemoteAddr());
 	}
 
 	private static void isvalidRefreshToken(

@@ -1,5 +1,6 @@
 package com.chzzkzzal.core.security.infrastructure.jwt;
 
+import static com.chzzkzzal.core.security.domain.TokenName.*;
 import static org.springframework.http.HttpHeaders.*;
 
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class TokenResolver {
 	private static final Pattern BEARER_PATTERN = Pattern.compile("^Bearer .*");
 
 	public Optional<String> resolveRefreshTokenFromRequest(HttpServletRequest request) {
-		return resolveFromCookie(request, "REFRESH_TOKEN");
+		return resolveFromCookie(request, REFRESH_TOKEN.name());
 	}
 
 	private Optional<String> resolveFromCookie(HttpServletRequest request, String cookieName) {

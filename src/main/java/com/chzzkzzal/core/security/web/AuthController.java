@@ -1,5 +1,7 @@
 package com.chzzkzzal.core.security.web;
 
+import static com.chzzkzzal.core.security.domain.TokenName.*;
+
 import java.util.Objects;
 
 import org.springframework.http.ResponseEntity;
@@ -43,15 +45,18 @@ public class AuthController {
 	}
 
 	@PostMapping("/logout")
-	@Operation(summary = "로그아웃 API", description = "로그아웃 API [담당자 : 이한음]")
-	public CustomResponse<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+	@Operation(summary = "로그아웃 API", description = "로그아웃 API [담당자 : 김진수]")
+	public CustomResponse<Void> logout(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) {
 		authService.logout(request, response);
 		return CustomResponse.ok();
 	}
 
 	private void validateExistHeader(HttpServletRequest request) {
 		String authorizationHeader = request.getHeader("SESSION");
-		String refreshTokenHeader = request.getHeader("Refresh-Token");
+		String refreshTokenHeader = request.getHeader(REFRESH_TOKEN.name());
 		if (Objects.isNull(authorizationHeader) || Objects.isNull(refreshTokenHeader)) {
 			throw new IllegalArgumentException("인증 토큰이 존재하지 않습니다.");
 		}

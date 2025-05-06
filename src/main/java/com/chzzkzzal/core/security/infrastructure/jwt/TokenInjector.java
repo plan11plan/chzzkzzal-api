@@ -1,5 +1,7 @@
 package com.chzzkzzal.core.security.infrastructure.jwt;
 
+import static com.chzzkzzal.core.security.domain.TokenName.*;
+
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.common.properties.SecurityProperties;
@@ -16,7 +18,7 @@ public class TokenInjector {
 	private final SecurityProperties securityProperties;
 
 	public void injectRefreshTokenToCookie(TokenResult result, HttpServletResponse response) {
-		addCookie("REFRESH_TOKEN", result.refreshToken(),
+		addCookie(REFRESH_TOKEN.name(), result.refreshToken(),
 			(int)tokenProperties.expirationTime().refreshTokenHours(),
 			response
 		);
