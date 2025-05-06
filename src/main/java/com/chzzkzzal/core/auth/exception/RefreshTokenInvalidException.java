@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.security.exception;
+package com.chzzkzzal.core.auth.exception;
 
-import static com.chzzkzzal.core.security.exception.AuthExceptionCode.*;
+import static com.chzzkzzal.core.auth.exception.AuthExceptionCode.*;
 
 import com.chzzkzzal.core.common.error.GlobalException;
 

@@ -1,10 +1,10 @@
-package com.chzzkzzal.core.security.service;
+package com.chzzkzzal.core.auth.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.core.security.domain.MemberUserDetails;
+import com.chzzkzzal.core.auth.domain.MemberUserDetails;
 import com.chzzkzzal.member.domain.MemberRepository;
 
 import lombok.RequiredArgsConstructor;

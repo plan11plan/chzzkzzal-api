@@ -1,11 +1,11 @@
-package com.chzzkzzal.core.security.application;
+package com.chzzkzzal.core.auth.application;
 
 import org.springframework.stereotype.Service;
 
+import com.chzzkzzal.core.auth.dto.AccessTokenResponse;
+import com.chzzkzzal.core.auth.service.AccessTokenService;
+import com.chzzkzzal.core.auth.service.RefreshTokenService;
 import com.chzzkzzal.core.common.properties.TokenProperties;
-import com.chzzkzzal.core.security.dto.AccessTokenResponse;
-import com.chzzkzzal.core.security.service.AccessTokenService;
-import com.chzzkzzal.core.security.service.RefreshTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

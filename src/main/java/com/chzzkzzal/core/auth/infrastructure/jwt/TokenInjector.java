@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.security.infrastructure.jwt;
+package com.chzzkzzal.core.auth.infrastructure.jwt;
 
-import static com.chzzkzzal.core.security.domain.TokenName.*;
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
 import org.springframework.stereotype.Service;
 

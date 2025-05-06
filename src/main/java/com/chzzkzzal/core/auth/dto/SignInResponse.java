@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.security.dto;
+package com.chzzkzzal.core.auth.dto;
 
 public record SignInResponse(
 	String channelName,

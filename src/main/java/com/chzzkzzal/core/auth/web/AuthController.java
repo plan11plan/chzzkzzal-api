@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.security.web;
+package com.chzzkzzal.core.auth.web;
 
-import static com.chzzkzzal.core.security.domain.TokenName.*;
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
 import java.util.Objects;
 
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chzzkzzal.core.auth.application.AuthService;
+import com.chzzkzzal.core.auth.dto.AccessTokenResponse;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.service.RefreshTokenService;
 import com.chzzkzzal.core.common.error.CustomResponse;
-import com.chzzkzzal.core.security.application.AuthService;
-import com.chzzkzzal.core.security.dto.AccessTokenResponse;
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
-import com.chzzkzzal.core.security.service.RefreshTokenService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

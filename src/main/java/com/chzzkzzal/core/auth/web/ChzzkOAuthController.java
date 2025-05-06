@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.security.web;
+package com.chzzkzzal.core.auth.web;
 
-import static com.chzzkzzal.core.security.domain.TokenName.*;
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
 import java.net.URI;
 import java.time.Duration;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chzzkzzal.core.auth.dto.SignInResponse;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.RevokeTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;
-import com.chzzkzzal.core.security.dto.SignInResponse;
 import com.chzzkzzal.member.domain.MemberService;
 import com.chzzkzzal.member.dto.ChzzkTokenResponse;
 import com.chzzkzzal.member.dto.ChzzkUserResponse;

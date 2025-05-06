@@ -1,8 +1,8 @@
-package com.chzzkzzal.core.security.service;
+package com.chzzkzzal.core.auth.service;
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
 
 import lombok.RequiredArgsConstructor;
 

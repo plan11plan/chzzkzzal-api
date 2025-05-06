@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.security.service;
+package com.chzzkzzal.core.auth.service;
 
-import static com.chzzkzzal.core.security.domain.TokenName.*;
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
 import java.util.Optional;
 
@@ -8,13 +8,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.core.security.domain.RefreshToken;
-import com.chzzkzzal.core.security.domain.RefreshTokenRepository;
-import com.chzzkzzal.core.security.exception.RefreshTokenInvalidException;
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenInjector;
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenProvider;
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenResolver;
-import com.chzzkzzal.core.security.infrastructure.jwt.TokenResult;
+import com.chzzkzzal.core.auth.domain.RefreshToken;
+import com.chzzkzzal.core.auth.domain.RefreshTokenRepository;
+import com.chzzkzzal.core.auth.exception.RefreshTokenInvalidException;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenInjector;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenProvider;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResolver;
+import com.chzzkzzal.core.auth.infrastructure.jwt.TokenResult;
 import com.chzzkzzal.member.domain.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
