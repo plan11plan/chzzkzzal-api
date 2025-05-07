@@ -9,6 +9,7 @@ import com.chzzkzzal.core.auth.application.usecase.ReissueTokenUseCase;
 import com.chzzkzzal.core.auth.application.usecase.dto.SignInCommand;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.auth.web.response.LoginCheckResponse;
+import com.chzzkzzal.core.auth.web.response.SignInResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,8 +35,8 @@ public class AuthFacade {
 		return checkLoginStatusUseCase.execute(request);
 	}
 
-	public void signIn(HttpServletResponse response, SignInCommand command) {
-		chzzkSignInUseCase.execute(response, command);
+	public SignInResponse signIn(SignInCommand command) {
+		return chzzkSignInUseCase.execute(command);
 	}
 
 }

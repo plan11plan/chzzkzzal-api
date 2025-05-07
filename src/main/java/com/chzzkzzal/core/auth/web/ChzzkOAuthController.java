@@ -1,19 +1,25 @@
 package com.chzzkzzal.core.auth.web;
 
+import static com.chzzkzzal.core.auth.domain.TokenName.*;
+
 import java.net.URI;
+import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chzzkzzal.common.error.CustomResponse;
+import com.chzzkzzal.common.properties.TokenProperties;
 import com.chzzkzzal.core.auth.application.usecase.dto.SignInCommand;
 import com.chzzkzzal.core.auth.facade.AuthFacade;
 import com.chzzkzzal.core.auth.web.response.SignInResponse;
+import com.chzzkzzal.core.auth.web.support.CookieMaker;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;
 import com.chzzkzzal.member.dto.ChzzkTokenResponse;
@@ -21,7 +27,6 @@ import com.chzzkzzal.member.dto.ChzzkUserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,15 +35,15 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "치지직 Auth API", description = "### 치치직 애플리케이션 API 사용 : "
 	+ "https://developers.chzzk.naver.com/application")
 public class ChzzkOAuthController {
-	@Value("${cookie.name}")
-	private String COOKIE_NAME;
 
-	@Value("${cookie.domain}")
-	private String COOKIE_DOMAIN;
+	@Value("${spring.redirect.url}")
+	private String redirectUrl;
 
 	private final AccessTokenHttpClient accessTokenHttpClient;
 	private final ChzzkUserHttpClient userHttpClient;
 	private final AuthFacade authFacade;
+	private final CookieMaker cookieMaker;
+	private final TokenProperties tokenProperties;
 
 	@Operation(
 		summary = "치지직 AccessToken 발급 및 로그인",
@@ -50,23 +55,35 @@ public class ChzzkOAuthController {
 				"4. 프론트 홈화면으로 리다이렉트 및 JWT 토큰 발급"
 	)
 	@GetMapping("${chzzk.oauth.redirection-url}")
-	public ResponseEntity<CustomResponse<SignInResponse>>
+	public ResponseEntity<?>
 	callback(
 		@RequestParam("code") String code,
-		@RequestParam("state") String state,
-		HttpServletResponse response
+		@RequestParam("state") String state
 	) {
 		ChzzkTokenResponse chzzkToken = accessTokenHttpClient.getAccessToken(code, state);
 		ChzzkUserResponse chzzkUserResponse = userHttpClient.me(chzzkToken.accessToken());
+
 		SignInCommand command = new SignInCommand(
 			chzzkUserResponse.channelId(),
 			chzzkUserResponse.channelName()
 		);
-		authFacade.signIn(response, command);
+		SignInResponse result = authFacade.signIn(command);
 
-		return ResponseEntity
-			.status(HttpStatus.FOUND)
-			.location(URI.create("http://localhost:3000"))
+		ResponseCookie accessCookie = cookieMaker.makeCookie(
+			SESSION.name(),
+			result.accessToken(),
+			Duration.ofMinutes(tokenProperties.expirationTime().accessTokenMinutes())
+		);
+		ResponseCookie refreshCookie = cookieMaker.makeCookie(
+			REFRESH_TOKEN.name(),
+			result.accessToken(),
+			Duration.ofHours(tokenProperties.expirationTime().refreshTokenHours())
+		);
+
+		return ResponseEntity.status(HttpStatus.FOUND)
+			.location(URI.create(redirectUrl))
+			.header(HttpHeaders.SET_COOKIE, accessCookie.toString())
+			.header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
 			.build();
 	}
 }

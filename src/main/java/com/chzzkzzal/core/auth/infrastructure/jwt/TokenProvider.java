@@ -1,7 +1,6 @@
 package com.chzzkzzal.core.auth.infrastructure.jwt;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -20,32 +19,29 @@ public class TokenProvider {
 	private final JwtSigningKeyProvider jwtSigningKeyProvider;
 
 	public String generateAccessToken(String memberId) {
-		long currentTimeMillis = System.currentTimeMillis();
-		Date now = new Date(currentTimeMillis);
-
-		Date expiry = new Date(currentTimeMillis + tokenProperties.expirationTime().accessToken() * 1000);
+		Instant now = Instant.now();
+		Instant expiry = now.plus(tokenProperties.expirationTime().accessTokenDuration());
 
 		SecretKey secretKey = jwtSigningKeyProvider.getSigningKey();
 
 		return Jwts.builder()
 			.subject(memberId)
-			.issuedAt(now)
-			.expiration(expiry)
+			.issuedAt(Date.from(now))
+			.expiration(Date.from(expiry))
 			.signWith(secretKey)
 			.compact();
 	}
 
 	public String generateRefreshToken(String externalId) {
-		long currentTimeMillis = System.currentTimeMillis();
-		Date now = new Date(currentTimeMillis);
+		Instant now = Instant.now();
+		Instant expiry = now.plus(tokenProperties.expirationTime().refreshTokenDuration());
+
 		SecretKey secretKey = jwtSigningKeyProvider.getSigningKey();
 
 		return Jwts.builder()
-			.issuer(tokenProperties.issuer())
 			.subject(String.valueOf(externalId))
-			.issuedAt(now)
-			.expiration(
-				Date.from(Instant.now().plus(tokenProperties.expirationTime().refreshTokenHours(), ChronoUnit.HOURS)))
+			.issuedAt(Date.from(now))
+			.expiration(Date.from(expiry))
 			.signWith(secretKey)
 			.compact();
 	}

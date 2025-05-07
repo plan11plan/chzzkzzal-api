@@ -8,6 +8,6 @@ public record SecurityProperties(
 	@NestedConfigurationProperty Cookie cookie
 
 ) {
-	public record Cookie(String domain, boolean httpOnly, boolean secure) {
+	public record Cookie(String domain, boolean httpOnly, boolean secure, String sameSite) {
 	}
 }

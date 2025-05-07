@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record ChzzkTokenResponse(
 	@JsonProperty("accessToken")
 	String accessToken,
-	@JsonProperty("refreshTokenHours")
+	@JsonProperty("refreshToken")
 	String refreshToken,
 	@JsonProperty("tokenType")
 	String tokenType,

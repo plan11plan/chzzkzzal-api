@@ -12,7 +12,7 @@ public record AccessTokenResponse(
 	public static AccessTokenResponse of(String accessToken, TokenProperties tokenProperties) {
 		return AccessTokenResponse.builder()
 			.accessToken(accessToken)
-			.expirationTime(String.valueOf(tokenProperties.expirationTime().accessToken()))
+			.expirationTime(String.valueOf(tokenProperties.expirationTime().accessTokenMinutes()))
 			.build();
 	}
 }

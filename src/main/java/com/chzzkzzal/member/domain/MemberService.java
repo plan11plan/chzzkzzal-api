@@ -19,7 +19,7 @@ public class MemberService {
 	/**
 	 * 신규 회원 생성
 	 * - 회원 저장
-	 * - accessToken, refreshToken 발행
+	 * - accessTokenMinutes, refreshToken 발행
 	 */
 	@Transactional
 	public SignInResponse signin(String channelId, String channelName) {
