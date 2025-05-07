@@ -2,6 +2,10 @@ package com.chzzkzzal.core.auth.infrastructure.jwt;
 
 import static com.chzzkzzal.core.auth.domain.TokenName.*;
 
+import java.time.Duration;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.common.properties.SecurityProperties;
@@ -25,20 +29,31 @@ public class TokenInjector {
 		);
 	}
 
-	public void addCookie(
-		String name,
-		String value,
-		int maxAge,
-		HttpServletResponse response
-	) {
-		Cookie cookie = new Cookie(name, value);
-		cookie.setPath("/");
-		cookie.setMaxAge(maxAge);
-		cookie.setHttpOnly(securityProperties.cookie().httpOnly());
-		cookie.setDomain(securityProperties.cookie().domain());
-		cookie.setSecure(securityProperties.cookie().secure());
-		cookie.setAttribute("SameSite", "None");
-		response.addCookie(cookie);
+	//	public void addCookie(
+	//		String name,
+	//		String value,
+	//		int maxAge,
+	//		HttpServletResponse response
+	//	) {
+	//		Cookie cookie = new Cookie(name, value);
+	//		cookie.setPath("/");
+	//		cookie.setMaxAge(maxAge);
+	//		cookie.setHttpOnly(securityProperties.cookie().httpOnly());
+	//		cookie.setDomain(securityProperties.cookie().domain());
+	//		cookie.setSecure(securityProperties.cookie().secure());
+	//		cookie.setAttribute("SameSite", "None");
+	//		response.addCookie(cookie);
+	//	}
+	public void addCookie(String name, String value, int maxAge, HttpServletResponse response) {
+		ResponseCookie cookie = ResponseCookie.from(name, value)
+			.path("/")
+			.maxAge(Duration.ofSeconds(maxAge))
+			.httpOnly(securityProperties.cookie().httpOnly())
+			.domain(securityProperties.cookie().domain())
+			.secure(securityProperties.cookie().secure())
+			.sameSite("none")
+			.build();
+		response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 	}
 
 	public void invalidateCookie(

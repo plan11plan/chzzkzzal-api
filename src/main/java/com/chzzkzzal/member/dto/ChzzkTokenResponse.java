@@ -6,10 +6,8 @@ public record ChzzkTokenResponse(
 	@JsonProperty("accessToken")
 	String accessToken,
 	@JsonProperty("refreshTokenHours")
-
 	String refreshToken,
 	@JsonProperty("tokenType")
-
 	String tokenType,
 	@JsonProperty("expiresIn")
 	String expiresIn

@@ -13,3 +13,4 @@ public class MemberLoader {
 		return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 	}
 }
+

@@ -1,25 +1,21 @@
 package com.chzzkzzal.core.auth.web;
 
-import static com.chzzkzzal.core.auth.domain.TokenName.*;
-
 import java.net.URI;
-import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chzzkzzal.common.error.CustomResponse;
+import com.chzzkzzal.core.auth.application.usecase.dto.SignInCommand;
+import com.chzzkzzal.core.auth.facade.AuthFacade;
 import com.chzzkzzal.core.auth.web.response.SignInResponse;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
-import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.RevokeTokenHttpClient;
 import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;
-import com.chzzkzzal.member.domain.MemberService;
 import com.chzzkzzal.member.dto.ChzzkTokenResponse;
 import com.chzzkzzal.member.dto.ChzzkUserResponse;
 
@@ -34,26 +30,15 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "치지직 Auth API", description = "### 치치직 애플리케이션 API 사용 : "
 	+ "https://developers.chzzk.naver.com/application")
 public class ChzzkOAuthController {
-	@Value("${chzzkzzal.front}")
-	private String FRONT_DOMAIN;
-
 	@Value("${cookie.name}")
 	private String COOKIE_NAME;
 
 	@Value("${cookie.domain}")
 	private String COOKIE_DOMAIN;
 
-	@Value("${cookie.path}")
-	private String COOKIE_PATH;
-	@Value("${cookie.days}")
-	private int COOKIE_DAYS;
-	@Value("${cookie.same_site}")
-	private String COOKIE_SAME_SITE;
-
 	private final AccessTokenHttpClient accessTokenHttpClient;
 	private final ChzzkUserHttpClient userHttpClient;
-	private final RevokeTokenHttpClient revokeTokenHttpClient;
-	private final MemberService memberService;
+	private final AuthFacade authFacade;
 
 	@Operation(
 		summary = "치지직 AccessToken 발급 및 로그인",
@@ -65,61 +50,23 @@ public class ChzzkOAuthController {
 				"4. 프론트 홈화면으로 리다이렉트 및 JWT 토큰 발급"
 	)
 	@GetMapping("${chzzk.oauth.redirection-url}")
-	public ResponseEntity<?> callback(
+	public ResponseEntity<CustomResponse<SignInResponse>>
+	callback(
 		@RequestParam("code") String code,
 		@RequestParam("state") String state,
 		HttpServletResponse response
 	) {
-		ChzzkTokenResponse tokenResponse = accessTokenHttpClient.getAccessToken(code, state);
-		String accessToken = tokenResponse.accessToken();
-		ChzzkUserResponse userInfo = userHttpClient.me(accessToken);
+		ChzzkTokenResponse chzzkToken = accessTokenHttpClient.getAccessToken(code, state);
+		ChzzkUserResponse chzzkUserResponse = userHttpClient.me(chzzkToken.accessToken());
+		SignInCommand command = new SignInCommand(
+			chzzkUserResponse.channelId(),
+			chzzkUserResponse.channelName()
+		);
+		authFacade.signIn(response, command);
 
-		SignInResponse signInResponse = memberService.signin(userInfo.channelId(), userInfo.channelName());
-
-		// JWT 토큰을 HTTP-only 쿠키로 설정
-		ResponseCookie cookie = ResponseCookie
-			.from(COOKIE_NAME, signInResponse.accessToken())
-			.domain(COOKIE_DOMAIN)
-			.httpOnly(true)
-			.secure(true) // 로컬호스트에서는 false, 프로덕션에서는 true로 설정
-			.path(COOKIE_PATH)
-			.maxAge(Duration.ofDays(COOKIE_DAYS))
-			.sameSite(COOKIE_SAME_SITE) // CSRF 보호
-			.build();
-
-		response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-
-		// JWT 토큰을 HTTP-only 쿠키로 설정
-		ResponseCookie refreshTokenCookie = ResponseCookie
-			.from(REFRESH_TOKEN.name(), signInResponse.refreshToken())
-			.domain(COOKIE_DOMAIN)
-			.httpOnly(true)
-			.secure(true) // 로컬호스트에서는 false, 프로덕션에서는 true로 설정
-			.path(COOKIE_PATH)
-			.maxAge(Duration.ofDays(COOKIE_DAYS))
-			.sameSite(COOKIE_SAME_SITE) // CSRF 보호
-			.build();
-		response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
-
-		return ResponseEntity.status(HttpStatus.FOUND)
-			.header(HttpHeaders.SET_COOKIE, cookie.toString())
-			.header(REFRESH_TOKEN.name(), "Bearer " + signInResponse.refreshToken())
-			.location(URI.create(FRONT_DOMAIN))
+		return ResponseEntity
+			.status(HttpStatus.FOUND)
+			.location(URI.create("http://localhost:3000"))
 			.build();
 	}
-
-	// @PostMapping("/revoke")
-	// public ResponseEntity<String> revokeToken(@RequestBody ChzzkRevokeRequest request) {
-	// 	String revokeResult = chzzkRevokeClient.revokeToken(request.getToken(), request.getTokenTypeHint());
-	// 	return ResponseEntity.ok(revokeResult);
-	// }
-
-	record tokenDto(
-		ChzzkTokenResponse chzzkTokenResponse,
-		ChzzkUserResponse chzzkUserResponse,
-		String jwtToken
-	) {
-
-	}
-
 }

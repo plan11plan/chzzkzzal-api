@@ -2,9 +2,11 @@ package com.chzzkzzal.core.auth.facade;
 
 import org.springframework.stereotype.Service;
 
+import com.chzzkzzal.core.auth.application.impl.ChzzkSignInUseCase;
 import com.chzzkzzal.core.auth.application.usecase.CheckLoginStatusUseCase;
 import com.chzzkzzal.core.auth.application.usecase.LogoutUseCase;
 import com.chzzkzzal.core.auth.application.usecase.ReissueTokenUseCase;
+import com.chzzkzzal.core.auth.application.usecase.dto.SignInCommand;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.auth.web.response.LoginCheckResponse;
 
@@ -18,6 +20,7 @@ public class AuthFacade {
 	private final ReissueTokenUseCase reissueTokenUseCase;
 	private final LogoutUseCase logoutUseCase;
 	private final CheckLoginStatusUseCase checkLoginStatusUseCase;
+	private final ChzzkSignInUseCase chzzkSignInUseCase;
 
 	public AccessTokenResponse reissueTokens(HttpServletRequest request, HttpServletResponse response) {
 		return reissueTokenUseCase.execute(request, response);
@@ -29,6 +32,10 @@ public class AuthFacade {
 
 	public LoginCheckResponse checkLoginStatus(HttpServletRequest request) {
 		return checkLoginStatusUseCase.execute(request);
+	}
+
+	public void signIn(HttpServletResponse response, SignInCommand command) {
+		chzzkSignInUseCase.execute(response, command);
 	}
 
 }

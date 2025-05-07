@@ -48,5 +48,4 @@ public class AuthController {
 	checkAuth(HttpServletRequest request) {
 		return CustomResponse.okResponseEntity(authFacade.checkLoginStatus(request));
 	}
-
 }
