@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.external.chzzk.domain;
+package com.chzzkzzal.core.chzzk.common;
 
 import lombok.Getter;
 

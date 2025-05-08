@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.facade;
+package com.chzzkzzal.core.auth.facade.out;
 
 import org.springframework.stereotype.Service;
 

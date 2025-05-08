@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.external.chzzk.intrastructure.core;
+package com.chzzkzzal.core.chzzk.adapter.out.core;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

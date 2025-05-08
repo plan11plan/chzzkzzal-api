@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.common.error.CustomResponse;
-import com.chzzkzzal.core.auth.facade.AuthFacade;
+import com.chzzkzzal.core.auth.facade.out.AuthFacade;
 import com.chzzkzzal.core.auth.web.response.AccessTokenResponse;
 import com.chzzkzzal.core.auth.web.response.LoginCheckResponse;
 

@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.external.chzzk.intrastructure.core;
+package com.chzzkzzal.core.chzzk.adapter.out.core;
 
-import static com.chzzkzzal.core.external.chzzk.domain.ChzzkApiFields.*;
+import static com.chzzkzzal.core.chzzk.common.ChzzkApiFields.*;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.chzzkzzal.member.dto;
+package com.chzzkzzal.core.chzzk.common.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

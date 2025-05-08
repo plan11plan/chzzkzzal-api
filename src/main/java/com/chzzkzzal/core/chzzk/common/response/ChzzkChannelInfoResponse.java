@@ -1,6 +1,6 @@
-package com.chzzkzzal.core.external.chzzk.domain.model;
+package com.chzzkzzal.core.chzzk.common.response;
 
-public record ChannelInfo(
+public record ChzzkChannelInfoResponse(
 	String channelId,
 	String channelName,
 	String channelImageUrl,

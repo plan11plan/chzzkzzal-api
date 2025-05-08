@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.common.properties.TokenProperties;
 import com.chzzkzzal.core.auth.application.usecase.dto.SignInCommand;
-import com.chzzkzzal.core.auth.facade.AuthFacade;
+import com.chzzkzzal.core.auth.facade.out.AuthFacade;
 import com.chzzkzzal.core.auth.web.response.SignInResponse;
 import com.chzzkzzal.core.auth.web.support.CookieMaker;
-import com.chzzkzzal.core.external.chzzk.intrastructure.http.auth.AccessTokenHttpClient;
-import com.chzzkzzal.core.external.chzzk.intrastructure.http.user.ChzzkUserHttpClient;
-import com.chzzkzzal.member.dto.ChzzkTokenResponse;
-import com.chzzkzzal.member.dto.ChzzkUserResponse;
+import com.chzzkzzal.core.chzzk.adapter.in.facade.ChzzkDevelopersFacade;
+import com.chzzkzzal.core.chzzk.application.service.IssueAccessTokenService;
+import com.chzzkzzal.core.chzzk.common.response.ChzzkTokenResponse;
+import com.chzzkzzal.core.chzzk.common.response.ChzzkUserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,8 +39,8 @@ public class ChzzkOAuthController {
 	@Value("${spring.redirect.url}")
 	private String redirectUrl;
 
-	private final AccessTokenHttpClient accessTokenHttpClient;
-	private final ChzzkUserHttpClient userHttpClient;
+	private final IssueAccessTokenService issueAccessTokenService;
+	private final ChzzkDevelopersFacade chzzkDevelopersFacade;
 	private final AuthFacade authFacade;
 	private final CookieMaker cookieMaker;
 	private final TokenProperties tokenProperties;
@@ -60,8 +60,8 @@ public class ChzzkOAuthController {
 		@RequestParam("code") String code,
 		@RequestParam("state") String state
 	) {
-		ChzzkTokenResponse chzzkToken = accessTokenHttpClient.getAccessToken(code, state);
-		ChzzkUserResponse chzzkUserResponse = userHttpClient.me(chzzkToken.accessToken());
+		ChzzkTokenResponse chzzkToken = chzzkDevelopersFacade.issueAccessToken(code, state);
+		ChzzkUserResponse chzzkUserResponse = chzzkDevelopersFacade.getUserChannelInfo(chzzkToken.accessToken());
 
 		SignInCommand command = new SignInCommand(
 			chzzkUserResponse.channelId(),
