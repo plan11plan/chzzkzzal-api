@@ -22,8 +22,11 @@ public class MemberJpaAdapter implements SaveMemberPort, LoadMemberPort {
 	}
 
 	@Override
-	public Member save(final String externalId, final String channelName) {
-		Member member = new Member(channelName, externalId);
-		return memberRepository.save(member);
+	public Member saveIfNotExist(final String externalId, final String channelName) {
+		Optional<Member> member = findByChannelId(externalId);
+		if (member.isPresent()) {
+			return member.get();
+		}
+		return memberRepository.save(new Member(channelName, externalId));
 	}
 }

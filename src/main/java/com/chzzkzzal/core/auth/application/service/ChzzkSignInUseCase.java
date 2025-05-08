@@ -24,7 +24,7 @@ public class ChzzkSignInUseCase implements SignInUseCase {
 
 	@Override
 	public SignInResponse execute(final SignInCommand command) {
-		Member member = saveMemberPort.save(command.channelId(), command.channelName());
+		Member member = saveMemberPort.saveIfNotExist(command.channelId(), command.channelName());
 		String accessToken = tokenGeneratorPort.generateAccessToken(String.valueOf(member.getId()));
 		String refreshToken = tokenGeneratorPort.generateRefreshToken(String.valueOf(member.getId()));
 		refreshTokenStorePort.save(RefreshToken.of(String.valueOf(member.getId()), refreshToken));
