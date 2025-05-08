@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.chzzkzzal.common.error.CustomResponse;
-import com.chzzkzzal.core.auth.domain.MemberUserDetails;
+import com.chzzkzzal.core.auth.adapter.in.web.security.MemberUserDetails;
 import com.chzzkzzal.zzal.infrastructure.dto.ZzalCreateRequest;
 import com.chzzkzzal.zzal.service.ZzalDetailResponse;
 import com.chzzkzzal.zzal.service.ZzalDetailService;
