@@ -65,7 +65,7 @@ public class ChzzkOAuthController {
 		);
 		ResponseCookie refreshCookie = cookieWriterPort.makeCookie(
 			REFRESH_TOKEN.name(),
-			result.accessToken(),
+			result.refreshToken(),
 			Duration.ofHours(tokenProperties.expirationTime().refreshTokenHours())
 		);
 

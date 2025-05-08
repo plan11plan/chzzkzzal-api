@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "인증 API", description = "")
 @Slf4j
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -65,7 +65,8 @@ public class AuthController {
 	@PostMapping("/logout")
 	public ResponseEntity<CustomResponse<Void>>
 	logout(HttpServletRequest request, HttpServletResponse response) {
-		String refreshToken = tokenResolver.resolveRefreshTokenFromRequest(request)
+		String refreshToken = tokenResolver
+			.resolveRefreshTokenFromRequest(request)
 			.orElseThrow(MissingJwtTokenException::new);
 
 		LogoutCommand command = new LogoutCommand(refreshToken);
@@ -77,7 +78,7 @@ public class AuthController {
 	}
 
 	@Operation(summary = "로그인 체크", description = "로그인 상태 체크 API [담당자 : 김진수]")
-	@GetMapping("/auth/check")
+	@GetMapping("/check")
 	public ResponseEntity<CustomResponse<LoginCheckResponse>>
 	checkAuth(HttpServletRequest request) {
 		String jwtToken = tokenResolver

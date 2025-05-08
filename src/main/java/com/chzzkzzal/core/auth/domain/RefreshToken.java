@@ -19,7 +19,7 @@ public class RefreshToken {
 	@Id
 	private String externalId;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 512)
 	private String token;
 
 	public static RefreshToken of(String externalId, String token) {
