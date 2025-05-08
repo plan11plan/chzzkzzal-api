@@ -22,6 +22,11 @@ public class MemberJpaAdapter implements SaveMemberPort, LoadMemberPort {
 	}
 
 	@Override
+	public Optional<Member> findById(final String id) {
+		return memberRepository.findById(Long.valueOf(id));
+	}
+
+	@Override
 	public Member saveIfNotExist(final String externalId, final String channelName) {
 		Optional<Member> member = findByChannelId(externalId);
 		if (member.isPresent()) {

@@ -7,4 +7,6 @@ import com.chzzkzzal.member.domain.Member;
 public interface LoadMemberPort {
 
 	Optional<Member> findByChannelId(String channelId);
+
+	Optional<Member> findById(String id);
 }

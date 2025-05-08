@@ -14,9 +14,9 @@ public class MemberUserDetailService implements UserDetailsService {
 	private final LoadMemberPort loadMemberPort;
 
 	@Override
-	public MemberUserDetails loadUserByUsername(String channelId) throws UsernameNotFoundException {
-		return loadMemberPort.findByChannelId(channelId)
+	public MemberUserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		return loadMemberPort.findById(id)
 			.map(MemberUserDetails::new)
-			.orElseThrow(() -> new UsernameNotFoundException("Not found: " + channelId));
+			.orElseThrow(() -> new UsernameNotFoundException("Not found: " + id));
 	}
 }

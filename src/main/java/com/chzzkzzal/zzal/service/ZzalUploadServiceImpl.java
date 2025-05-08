@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chzzkzzal.core.storage.s3.application.S3ServicePort;
+import com.chzzkzzal.core.storage.s3.adapter.in.S3Facade;
 import com.chzzkzzal.member.domain.Member;
 import com.chzzkzzal.member.domain.MemberLoader;
 import com.chzzkzzal.zzal.domain.dao.SaveZzalPort;
@@ -22,7 +22,7 @@ public class ZzalUploadServiceImpl implements ZzalUploadService {
 	private final SaveZzalPort saveZzalPort;
 	private final MetadataProvider metadataProvider;
 	private final MemberLoader memberLoader;
-	private final S3ServicePort s3ServicePort;
+	private final S3Facade s3Facade;
 	private final ZzalFactoryProvider zzalFactoryProvider;
 
 	@Override
@@ -33,8 +33,8 @@ public class ZzalUploadServiceImpl implements ZzalUploadService {
 
 		ZzalFactory factory = zzalFactoryProvider.getFactory(metadata);
 
-		String fileName = s3ServicePort.uploadFile(multipartFile);
-		String fileUrl = s3ServicePort.getFileUrl(fileName);
+		String fileName = s3Facade.uploadFile(multipartFile);
+		String fileUrl = s3Facade.getFileUrl(fileName);
 
 		Zzal zzal = factory.createZzal(channelId, member, metadata, title, fileUrl);
 		return saveZzalPort.save(zzal).getId();

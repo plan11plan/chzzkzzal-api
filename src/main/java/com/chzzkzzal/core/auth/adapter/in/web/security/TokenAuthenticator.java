@@ -2,8 +2,6 @@ package com.chzzkzzal.core.auth.adapter.in.web.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.auth.adapter.out.jwt.JwtClaimsExtractor;
@@ -14,16 +12,16 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TokenAuthenticator {
-	private final UserDetailsService userDetailsService;
+	private final MemberUserDetailService memberUserDetailService;
 	private final JwtClaimsExtractor jwtClaimsExtractor;
 
 	public Authentication authenticate(String token) {
 		Claims claims = jwtClaimsExtractor.extractClaims(token);
 		String subject = claims.getSubject();
-		UserDetails userDetails = userDetailsService.loadUserByUsername(subject);
+		MemberUserDetails memberUserDetails = memberUserDetailService.loadUserByUsername(subject);
 
 		return new UsernamePasswordAuthenticationToken(
-			userDetails, token, userDetails.getAuthorities()
+			memberUserDetails, token, memberUserDetails.getAuthorities()
 		);
 	}
 }

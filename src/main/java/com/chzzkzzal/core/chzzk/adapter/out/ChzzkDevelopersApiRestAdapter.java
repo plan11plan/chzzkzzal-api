@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.chzzkzzal.core.chzzk.adapter.out.core.ChzzkHttpRequestFactory;
 import com.chzzkzzal.core.chzzk.adapter.out.core.ChzzkRestExecutor;
-import com.chzzkzzal.core.chzzk.application.out.ChzzkDevelopersApiPort;
+import com.chzzkzzal.core.chzzk.application.port.out.ChzzkDevelopersApiPort;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkChannelInfoResponse;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkTokenResponse;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkUserResponse;

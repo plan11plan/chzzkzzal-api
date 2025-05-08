@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.storage.s3.domain;
+package com.chzzkzzal.core.storage.s3.adapter.out.aws.internal;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

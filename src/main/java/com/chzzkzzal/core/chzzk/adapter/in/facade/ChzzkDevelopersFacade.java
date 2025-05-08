@@ -2,9 +2,9 @@ package com.chzzkzzal.core.chzzk.adapter.in.facade;
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.core.chzzk.application.in.GetChannelInfoUseCase;
-import com.chzzkzzal.core.chzzk.application.in.GetUserChannelInfoUseCase;
-import com.chzzkzzal.core.chzzk.application.in.IssueAccessTokenUseCase;
+import com.chzzkzzal.core.chzzk.application.port.in.GetChannelInfoUseCase;
+import com.chzzkzzal.core.chzzk.application.port.in.GetUserChannelInfoUseCase;
+import com.chzzkzzal.core.chzzk.application.port.in.IssueAccessTokenUseCase;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkChannelInfoResponse;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkTokenResponse;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkUserResponse;

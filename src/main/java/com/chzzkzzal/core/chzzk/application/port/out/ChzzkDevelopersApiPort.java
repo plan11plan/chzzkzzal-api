@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.chzzk.application.out;
+package com.chzzkzzal.core.chzzk.application.port.out;
 
 import com.chzzkzzal.core.chzzk.common.response.ChzzkChannelInfoResponse;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkTokenResponse;

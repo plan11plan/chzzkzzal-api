@@ -2,8 +2,8 @@ package com.chzzkzzal.core.chzzk.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.chzzkzzal.core.chzzk.application.in.GetUserChannelInfoUseCase;
-import com.chzzkzzal.core.chzzk.application.out.ChzzkDevelopersApiPort;
+import com.chzzkzzal.core.chzzk.application.port.in.GetUserChannelInfoUseCase;
+import com.chzzkzzal.core.chzzk.application.port.out.ChzzkDevelopersApiPort;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkUserResponse;
 
 import lombok.RequiredArgsConstructor;
