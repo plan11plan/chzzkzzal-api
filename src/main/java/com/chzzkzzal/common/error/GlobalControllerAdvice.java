@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,20 +80,6 @@ public class GlobalControllerAdvice {
 			.body(CustomResponse.error(exception.getErrorCode(), exception.getMessage()));
 	}
 
-	/**
-	 * 처리되지 않은 에러를 여기서 처리 한다.
-	 *
-	 * @param exception 발생한 에러
-	 * @return CustomResponse로 메시지를 감춰서 반환한다.
-	 */
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	protected ResponseEntity<CustomResponse<Void>> handleException(Exception exception) {
-		log.error("Exception : {}", GlobalErrorCode.OTHER.getMessage(), exception);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-			.body(CustomResponse.error(GlobalErrorCode.OTHER));
-	}
-
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	protected ResponseEntity<CustomResponse<Void>> handleAccessDeniedException(
@@ -105,6 +92,30 @@ public class GlobalControllerAdvice {
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public ResponseEntity<String> handleMaxSizeException(MaxUploadSizeExceededException exc) {
 		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("파일 크기가 너무 큽니다!" + exc.getMessage());
+	}
+
+	/** 존재하지 않는 API(URL) 요청 */
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	protected ResponseEntity<CustomResponse<Void>> handleNoHandlerFoundException(NoHandlerFoundException ex) {
+		log.warn("요청 URL을 찾을 수 없습니다. method={}, uri={}", ex.getHttpMethod(), ex.getRequestURL());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+			.body(CustomResponse.error(GlobalErrorCode.NOT_FOUND));
+	}
+
+	/**
+	 * 처리되지 않은 에러를 여기서 처리 한다.
+	 *
+	 * @param exception 발생한 에러
+	 * @return CustomResponse로 메시지를 감춰서 반환한다.
+	 */
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	protected ResponseEntity<CustomResponse<Void>> handleException(Exception exception) {
+		log.error("Exception : {}", GlobalErrorCode.OTHER.getMessage(), exception);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+			.body(CustomResponse.error(GlobalErrorCode.OTHER));
 	}
 
 }
