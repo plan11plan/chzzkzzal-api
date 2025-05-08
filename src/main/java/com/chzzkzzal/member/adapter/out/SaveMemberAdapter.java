@@ -15,7 +15,7 @@ public class SaveMemberAdapter implements SaveMemberPort {
 
 	@Override
 	public Member save(final String externalId, final String channelName) {
-		Member member = new Member(channelName, channelName);
+		Member member = new Member(channelName, externalId);
 		return memberRepository.save(member);
 	}
 }
