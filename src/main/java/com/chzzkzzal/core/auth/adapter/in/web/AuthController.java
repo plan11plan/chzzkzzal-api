@@ -45,7 +45,7 @@ public class AuthController {
 	public ResponseEntity<CustomResponse<ReissueTokensResponse>>
 	reissueAccessToken(HttpServletRequest request, HttpServletResponse response) {
 		String jwtToken = tokenResolver
-			.resolveFromCookie(request, SESSION.name())
+			.resolveFromCookie(request, REFRESH_TOKEN.name())
 			.orElseThrow(MissingJwtTokenException::new);
 
 		ReissueTokenCommand command = new ReissueTokenCommand(jwtToken);
