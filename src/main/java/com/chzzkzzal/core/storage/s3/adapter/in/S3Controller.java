@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chzzkzzal.common.error.CustomResponse;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,21 +27,21 @@ public class S3Controller {
 
 	@Operation(summary = "S3 파일 업로드", description = "S3 파일 업로드 API [담당자 : 김진수]")
 	@PostMapping
-	public ResponseEntity<List<String>> upload(@RequestParam("files") List<MultipartFile> files) {
-		return ResponseEntity.ok(facade.uploadFiles(files));
+	public ResponseEntity<CustomResponse<List<String>>> upload(@RequestParam("files") List<MultipartFile> files) {
+		return CustomResponse.okResponseEntity(facade.uploadFiles(files));
 	}
 
 	@Operation(summary = "S3 파일 제거", description = "S3 파일 제거 API [담당자 : 김진수]")
 	@DeleteMapping
-	public ResponseEntity<Void> delete(@RequestParam String key) {
+	public ResponseEntity<CustomResponse<Void>> delete(@RequestParam String key) {
 		facade.deleteFile(key);
-		return ResponseEntity.ok().build();
+		return CustomResponse.okResponseEntity();
 	}
 
 	@Operation(summary = "S3 파일 url 다운로드", description = "S3 파일 url 다운로드 API [담당자 : 김진수]")
 	@GetMapping
-	public ResponseEntity<String> url(@RequestParam String key) {
-		return ResponseEntity.ok(facade.getFileUrl(key));
+	public ResponseEntity<CustomResponse<String>> url(@RequestParam String key) {
+		return CustomResponse.okResponseEntity(facade.getFileUrl(key));
 	}
 
 }
