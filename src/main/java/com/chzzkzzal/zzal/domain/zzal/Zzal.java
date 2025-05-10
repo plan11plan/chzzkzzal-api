@@ -2,9 +2,6 @@ package com.chzzkzzal.zzal.domain.zzal;
 
 import com.chzzkzzal.common.domain.BaseTimeEntity;
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.domain.marker.Bookmarkable;
-import com.chzzkzzal.zzal.domain.marker.Uploadable;
-import com.chzzkzzal.zzal.domain.marker.Viewable;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 
 import jakarta.persistence.DiscriminatorColumn;
@@ -21,7 +18,7 @@ import lombok.Getter;
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
-public abstract class Zzal extends BaseTimeEntity implements Uploadable, Bookmarkable, Viewable {
+public abstract class Zzal extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
