@@ -47,7 +47,7 @@
 //	}
 //
 //	@Override
-//	public ZzalMetaInfo getMetaInfo() {
+//	public MediaMeta getMetaInfo() {
 //		return null;
 //	}
 //

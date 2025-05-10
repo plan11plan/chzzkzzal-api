@@ -1,0 +1,11 @@
+package com.chzzkzzal.zzal.application.port.out;
+
+import java.util.Optional;
+
+import com.chzzkzzal.zzal.domain.zzal.Zzal;
+
+public interface DeleteZzalPort {
+	Optional<Zzal> findById(Long id);
+
+	void deleteById(Long id);
+}

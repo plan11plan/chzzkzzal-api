@@ -1,7 +1,8 @@
 package com.chzzkzzal.zzal.domain.zzal;
 
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.domain.metadata.vo.GifInfo;
+import com.chzzkzzal.zzal.domain.metadata.Gif;
+import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embedded;
@@ -26,11 +27,11 @@ public class GifZzal extends Zzal {
 	private Member member;
 
 	@Embedded
-	private GifInfo metaInfo;
+	private Gif metaInfo;
 
 	private String url;
 
-	public static GifZzal create(String channelId, Member member, GifInfo gifInfo, String title, String url) {
+	public static GifZzal create(String channelId, Member member, Gif gifInfo, String title, String url) {
 		GifZzal gifZzal = new GifZzal();
 		gifZzal.channelId = channelId;
 		gifZzal.member = member;
@@ -40,8 +41,8 @@ public class GifZzal extends Zzal {
 		return gifZzal;
 	}
 
-	public static GifZzal create(Member member, ZzalMetaInfo metadata, String title, String url) {
-		if (!(metadata instanceof GifInfo)) {
+	public static GifZzal create(Member member, MediaMeta metadata, String title, String url) {
+		if (!(metadata instanceof Gif)) {
 			throw new IllegalArgumentException("metadata는 GifInfo의 인스턴스여야 합니다.");
 		}
 		return create(member, metadata, title, url);

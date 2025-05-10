@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.chzzkzzal.core.chzzk.adapter.in.facade.ChzzkDevelopersFacade;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkChannelInfoResponse;
 import com.chzzkzzal.member.domain.MemberRepository;
+import com.chzzkzzal.zzal.adapter.out.persistence.ZzalJpaRepository;
+import com.chzzkzzal.zzal.application.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
-import com.chzzkzzal.zzal.infrastructure.persistence.jpa.ZzalJpaRepository;
-import com.chzzkzzal.zzal.service.ZzalDetailResponse;
 
 import lombok.RequiredArgsConstructor;
 

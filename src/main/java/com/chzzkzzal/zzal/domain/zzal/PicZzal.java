@@ -1,7 +1,8 @@
 package com.chzzkzzal.zzal.domain.zzal;
 
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.domain.metadata.vo.PicInfo;
+import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
+import com.chzzkzzal.zzal.domain.metadata.Pic;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embedded;
@@ -23,12 +24,12 @@ public class PicZzal extends Zzal {
 	private Member member;
 
 	@Embedded
-	private PicInfo metaInfo;
+	private Pic metaInfo;
 
 	@NotEmpty(message = "파일주소는 필수 입력 항목입니다.")
 	private String url;
 
-	public static PicZzal create(String channelId, Member member, PicInfo picInfo, String title, String url) {
+	public static PicZzal create(String channelId, Member member, Pic picInfo, String title, String url) {
 		PicZzal picZzal = new PicZzal();
 		picZzal.channelId = channelId;
 		picZzal.member = member;
@@ -38,8 +39,8 @@ public class PicZzal extends Zzal {
 		return picZzal;
 	}
 
-	public static PicZzal create(Member member, ZzalMetaInfo metadata, String title, String url) {
-		if (!(metadata instanceof PicInfo)) {
+	public static PicZzal create(Member member, MediaMeta metadata, String title, String url) {
+		if (!(metadata instanceof Pic)) {
 			throw new IllegalArgumentException("metadata는 PicInfo의 인스턴스여야 합니다.");
 		}
 		return create(member, metadata, title, url);

@@ -2,6 +2,10 @@ package com.chzzkzzal.zzal.domain.zzal;
 
 import com.chzzkzzal.common.domain.BaseTimeEntity;
 import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.zzal.domain.marker.Bookmarkable;
+import com.chzzkzzal.zzal.domain.marker.Uploadable;
+import com.chzzkzzal.zzal.domain.marker.Viewable;
+import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -31,7 +35,7 @@ public abstract class Zzal extends BaseTimeEntity implements Uploadable, Bookmar
 
 	abstract public String getUrl();
 
-	abstract public ZzalMetaInfo getMetaInfo();
+	abstract public MediaMeta getMetaInfo();
 
 	abstract public Member getMember();
 
