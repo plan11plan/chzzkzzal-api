@@ -1,4 +1,4 @@
-package com.chzzkzzal.member.controller;
+package com.chzzkzzal.member.adapter.in;
 
 import java.util.Map;
 
