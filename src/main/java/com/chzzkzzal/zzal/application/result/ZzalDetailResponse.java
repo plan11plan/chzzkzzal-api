@@ -3,6 +3,7 @@ package com.chzzkzzal.zzal.application.result;
 import java.time.LocalDateTime;
 
 import com.chzzkzzal.member.application.query.MemberInfo;
+import com.chzzkzzal.member.domain.Member;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
 
@@ -27,6 +28,19 @@ public record ZzalDetailResponse(
 			zzal.getUpdatedAt(),
 			member.id(),
 			member.channelName(),
+			zzal.getMetaInfo()
+		);
+	}
+
+	public static ZzalDetailResponse toResponse(Zzal zzal, Member member) {
+		return new ZzalDetailResponse(
+			zzal.getId(),
+			zzal.getUrl(),
+			zzal.getTitle(),
+			zzal.getCreatedAt(),
+			zzal.getUpdatedAt(),
+			member.getId(),
+			member.getChannelName(),
 			zzal.getMetaInfo()
 		);
 	}

@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.chzzkzzal.member.domain.MemberLoader;
 import com.chzzkzzal.zzal.application.port.in.ZzalGetAllUseCase;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
 import com.chzzkzzal.zzal.application.result.ZzalDetailResponse;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ZzalGetAllUseCaseImpl implements ZzalGetAllUseCase {
-	private final MemberLoader memberLoader;
 	private final LoadZzalPort loadZzalPort;
 
 	public List<ZzalDetailResponse> getAll() {

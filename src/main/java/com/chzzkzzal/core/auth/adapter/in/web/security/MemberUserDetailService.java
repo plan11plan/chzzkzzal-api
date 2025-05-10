@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.core.auth.application.port.out.LoadMemberPort;
+import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,8 +15,6 @@ public class MemberUserDetailService implements UserDetailsService {
 
 	@Override
 	public MemberUserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-		return loadMemberPort.findById(id)
-			.map(MemberUserDetails::new)
-			.orElseThrow(() -> new UsernameNotFoundException("Not found: " + id));
+		return new MemberUserDetails(loadMemberPort.loadMemberEntity(Long.valueOf(id)));
 	}
 }

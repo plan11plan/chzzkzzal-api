@@ -1,4 +1,4 @@
-package com.chzzkzzal.core.auth.adapter.out.persistence;
+package com.chzzkzzal.core.auth.adapter.out.refresh;
 
 import java.util.Optional;
 

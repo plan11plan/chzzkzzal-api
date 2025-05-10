@@ -14,4 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 	List<Member> findAllByIdIn(List<Long> id);
 
+	Member save(Member member);
+
 }

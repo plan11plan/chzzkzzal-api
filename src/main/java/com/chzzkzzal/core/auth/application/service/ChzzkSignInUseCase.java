@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.core.auth.application.command.SignInCommand;
 import com.chzzkzzal.core.auth.application.port.in.SignInUseCase;
-import com.chzzkzzal.core.auth.application.port.out.SaveMemberPort;
+import com.chzzkzzal.core.auth.application.port.out.SaveMemberCommandPort;
 import com.chzzkzzal.core.auth.application.port.out.TokenGeneratorPort;
 import com.chzzkzzal.core.auth.application.result.SignInResponse;
 import com.chzzkzzal.core.auth.domain.RefreshToken;
 import com.chzzkzzal.core.auth.domain.RefreshTokenStorePort;
-import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.member.application.query.MemberInfo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class ChzzkSignInUseCase implements SignInUseCase {
-	private final SaveMemberPort saveMemberPort;
+	private final SaveMemberCommandPort saveMemberCommandPort;
 	private final RefreshTokenStorePort refreshTokenStorePort;
 	private final TokenGeneratorPort tokenGeneratorPort;
 
 	@Override
 	public SignInResponse execute(final SignInCommand command) {
-		Member member = saveMemberPort.saveIfNotExist(command.channelId(), command.channelName());
-		String accessToken = tokenGeneratorPort.generateAccessToken(String.valueOf(member.getId()));
-		String refreshToken = tokenGeneratorPort.generateRefreshToken(String.valueOf(member.getId()));
-		refreshTokenStorePort.save(RefreshToken.of(String.valueOf(member.getId()), refreshToken));
+		MemberInfo memberInfo = saveMemberCommandPort.saveIfNotExist(command.channelId(), command.channelName());
+		String accessToken = tokenGeneratorPort.generateAccessToken(String.valueOf(memberInfo.id()));
+		String refreshToken = tokenGeneratorPort.generateRefreshToken(String.valueOf(memberInfo.id()));
+		refreshTokenStorePort.save(RefreshToken.of(String.valueOf(memberInfo.id()), refreshToken));
 
-		return new SignInResponse(member.getChannelName(), accessToken, refreshToken);
+		return new SignInResponse(memberInfo.channelName(), accessToken, refreshToken);
 	}
 }
