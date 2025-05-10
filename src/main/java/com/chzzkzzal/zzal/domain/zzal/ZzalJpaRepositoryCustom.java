@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.adapter.out.persistence;
+package com.chzzkzzal.zzal.domain.zzal;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.chzzkzzal.zzal.application.port.out.DeleteZzalPort;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
 import com.chzzkzzal.zzal.application.port.out.SaveZzalPort;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
 
 import lombok.RequiredArgsConstructor;
 

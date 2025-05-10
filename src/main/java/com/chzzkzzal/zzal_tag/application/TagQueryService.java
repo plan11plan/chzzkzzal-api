@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.zzal.adapter.out.persistence.ZzalJpaRepository;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.ZzalJpaRepository;
 import com.chzzkzzal.zzal_tag.domain.model.ZzalHashtag;
 import com.chzzkzzal.zzal_tag.domain.repository.ZzalHashtagRepository;
 

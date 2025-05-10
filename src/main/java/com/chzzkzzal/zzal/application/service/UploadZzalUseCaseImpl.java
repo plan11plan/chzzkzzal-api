@@ -9,6 +9,7 @@ import com.chzzkzzal.member.domain.Member;
 import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.SaveZzalPort;
+import com.chzzkzzal.zzal.domain.marker.Uploadable;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
 import com.chzzkzzal.zzal.domain.zzal.factory.ZzalCreator;
@@ -36,6 +37,9 @@ public class UploadZzalUseCaseImpl implements UploadZzalUseCase {
 		String fileUrl = s3Facade.getFileUrl(fileName);
 
 		Zzal zzal = factory.createZzal(channelId, member, metadata, title, fileUrl);
+		if (!(zzal instanceof Uploadable)) {
+			throw new IllegalArgumentException("업로르할 수 없습니다.");
+		}
 		return saveZzalPort.save(zzal).getId();
 	}
 }
