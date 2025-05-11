@@ -2,6 +2,7 @@ package com.chzzkzzal.zzalhits.service;
 
 import org.springframework.stereotype.Service;
 
+import com.chzzkzzal.zzal.application.port.in.command.AddHitCommand;
 import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
 import com.chzzkzzal.zzalhits.domain.ZzalHits;
 import com.chzzkzzal.zzalhits.repository.ZzalHitsRepository;
@@ -13,19 +14,16 @@ import lombok.RequiredArgsConstructor;
 public class ZzalHitsService {
 	private final ZzalHitsRepository zzalHitsRepository;
 
-	public ZzalHits addHits(Long zzalId, ClientInfo clientInfo) {
-		ZzalHits zzalHits = ZzalHits.addFromRequest(zzalId, clientInfo);
+	public ZzalHits addHits(AddHitCommand command) {
+		ZzalHits zzalHits = ZzalHits.addFromRequest(command.zzalId(), command.clientInfo());
 
-		// 1. Select
 		boolean exists = zzalHitsRepository.existsByUniqueIdentifier(zzalHits.getUniqueIdentifier());
-		// 2. Insert
 		if (!exists) {
 			zzalHitsRepository.save(zzalHits);
 		}
 		return zzalHits;
 	}
 
-	// 주의할점은 클라이언트는 모두 서로 다른 클라이언트여야만함.
 	public void insert(Long zzalId, ClientInfo clientInfo) {
 		ZzalHits zzalHits = ZzalHits.addFromRequest(zzalId, clientInfo);
 
@@ -33,7 +31,6 @@ public class ZzalHitsService {
 
 	}
 
-	// 해당 게시글의 카운트 집계하기 . 이때 여러 게시글이 존재하고, 해당 게시글 마다 조회가 삽입되어 있어야함.
 	public Long count(Long zzalId) {
 
 		Long aLong = zzalHitsRepository.countByZzalId(zzalId);

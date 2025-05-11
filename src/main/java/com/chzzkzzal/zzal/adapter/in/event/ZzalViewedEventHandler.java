@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.myviewhistory.MyViewHistoryService;
 import com.chzzkzzal.zzal.application.event.ZzalViewedEvent;
+import com.chzzkzzal.zzal.application.port.in.command.AddHitCommand;
 import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogDto;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogService;
@@ -31,7 +32,7 @@ public class ZzalViewedEventHandler {
 		Long zzalId = event.zzalId();
 		ClientInfo clientInfo = event.clientInfo();
 		Long memberId = event.memberId();
-		ZzalHits zzalHits = zzalHitsService.addHits(zzalId, clientInfo);
+		ZzalHits zzalHits = zzalHitsService.addHits(new AddHitCommand(zzalId, clientInfo));
 		zzalViewLogService.addViewLog(getZzalViewLogDto(memberId, zzalId, zzalHits));
 		if (memberId != null) {
 			myViewHistoryService.addMemberViewHistory(zzalId, memberId);
