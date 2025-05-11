@@ -1,10 +1,10 @@
-package com.chzzkzzal.zzalhits.domain;
+package com.chzzkzzal.zzal.domain.zzal;
 
-import static com.chzzkzzal.zzalhits.domain.UserAgentAnalyzer.*;
+import static com.chzzkzzal.zzal.adapter.out.hit.UserAgentAnalyzer.*;
 
 import java.time.LocalDate;
 
-import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
+import com.chzzkzzal.zzal.application.dto.ClientInfo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,7 @@ import lombok.ToString;
 	)
 )
 
-public class ZzalHits {
+public class ZzalHit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -40,21 +40,18 @@ public class ZzalHits {
 	private Long zzalId;
 
 	@Column(nullable = false, unique = true)
-	private String uniqueIdentifier;
+	private String uniqueKey;
 
 	@Column(nullable = false)
 	private String ipAddress;
 
-	// User Agent
 	@Column(nullable = false, length = 500)
 	private String userAgent;
 
-	// 브라우저 타입(크롬,사파리...)
 	@Column
 	@Enumerated(EnumType.STRING)
 	private BrowserType browserType;
 
-	// 디바이스 타입 (모바일/데스크톱)
 	@Column
 	@Enumerated(EnumType.STRING)
 	private DeviceType deviceType;
@@ -63,12 +60,12 @@ public class ZzalHits {
 	private LocalDate viewDate;
 
 	@Builder
-	public ZzalHits(Long zzalId, String uniqueIdentifier, String ipAddress,
+	private ZzalHit(Long zzalId, String uniqueKey, String ipAddress,
 		String userAgent, BrowserType browserType,
 		DeviceType deviceType, LocalDate viewDate) {
 
 		this.zzalId = zzalId;
-		this.uniqueIdentifier = uniqueIdentifier;
+		this.uniqueKey = uniqueKey;
 		this.ipAddress = ipAddress;
 		this.userAgent = userAgent;
 		this.browserType = browserType;
@@ -76,15 +73,15 @@ public class ZzalHits {
 		this.viewDate = viewDate;
 	}
 
-	public static ZzalHits addFromRequest(Long zzalId, ClientInfo clientInfo) {
+	public static ZzalHit of(Long zzalId,
+		String uniqueKey,
+		ClientInfo clientInfo) {
 
-		String uniqueIdentifier = UniqueIdentifierGenerator
-			.generate(clientInfo.ipAddress(), clientInfo.userAgent());
 		LocalDate viewDate = LocalDate.now();
 
-		return ZzalHits.builder()
+		return ZzalHit.builder()
 			.zzalId(zzalId)
-			.uniqueIdentifier(uniqueIdentifier)
+			.uniqueKey(uniqueKey)
 			.ipAddress(clientInfo.ipAddress())
 			.userAgent(clientInfo.userAgent())
 			.browserType(clientInfo.browserType())

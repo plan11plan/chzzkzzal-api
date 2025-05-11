@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzalhits.controller;
+package com.chzzkzzal.zzal.adapter.in;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chzzkzzal.common.error.CustomResponse;
-import com.chzzkzzal.zzalhits.service.ZzalHitsService;
+import com.chzzkzzal.zzal.application.port.in.GetHitCountUseCase;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RequestMapping("/view")
-public class ZzalHitsController {
-	private final ZzalHitsService zzalHitsService;
+public class HitController {
+	private final GetHitCountUseCase getHitCountUseCase;
 
 	@GetMapping("/count/{zzalId}")
 	public ResponseEntity<CustomResponse<Long>> count(@PathVariable Long zzalId) {
-		Long response = zzalHitsService.count(zzalId);
+		Long response = getHitCountUseCase.count(zzalId);
 		return CustomResponse.okResponseEntity(response);
 	}
 }

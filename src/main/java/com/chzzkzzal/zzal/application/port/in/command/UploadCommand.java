@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.application.command;
+package com.chzzkzzal.zzal.application.port.in.command;
 
 import org.springframework.web.multipart.MultipartFile;
 

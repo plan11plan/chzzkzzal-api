@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.application.result;
+package com.chzzkzzal.zzal.application.port.in.query.result;
 
 import java.time.LocalDateTime;
 

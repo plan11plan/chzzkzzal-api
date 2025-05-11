@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.application.command;
+package com.chzzkzzal.zzal.adapter.in;
 
 public record ZzalCreateRequest(
 	String channelId,

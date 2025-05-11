@@ -17,14 +17,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.chzzkzzal.common.error.CustomResponse;
 import com.chzzkzzal.core.auth.adapter.in.web.security.MemberUserDetails;
-import com.chzzkzzal.zzal.application.command.UploadCommand;
-import com.chzzkzzal.zzal.application.command.ZzalCreateRequest;
+import com.chzzkzzal.zzal.application.dto.ClientInfo;
+import com.chzzkzzal.zzal.application.port.in.GetZzalAllUseCase;
+import com.chzzkzzal.zzal.application.port.in.GetZzalDetailUseCase;
 import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
-import com.chzzkzzal.zzal.application.port.in.ZzalDetailUseCase;
-import com.chzzkzzal.zzal.application.port.in.ZzalGetAllUseCase;
-import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
+import com.chzzkzzal.zzal.application.port.in.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
-import com.chzzkzzal.zzal.application.result.ZzalDetailResponse;
+import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,8 +37,8 @@ import lombok.RequiredArgsConstructor;
 public class ZzalController {
 
 	private final UploadZzalUseCase uploadZzalUseCase;
-	private final ZzalDetailUseCase zzalDetailUseCase;
-	private final ZzalGetAllUseCase zzalGetAllUseCase;
+	private final GetZzalDetailUseCase getZzalDetailUseCase;
+	private final GetZzalAllUseCase getZzalAllUseCase;
 
 	@Operation(
 		summary = "짤 업로드(파일1개)",
@@ -93,7 +92,7 @@ public class ZzalController {
 	) {
 
 		GetZzalDetailQuery query = new GetZzalDetailQuery(zzalId, ClientInfo.from(request));
-		ZzalDetailResponse response = zzalDetailUseCase.execute(query);
+		ZzalDetailResponse response = getZzalDetailUseCase.execute(query);
 		return CustomResponse.okResponseEntity(response);
 	}
 
@@ -107,7 +106,7 @@ public class ZzalController {
 	)
 	@GetMapping
 	public ResponseEntity<CustomResponse<List<ZzalDetailResponse>>> getAll() {
-		List<ZzalDetailResponse> responses = zzalGetAllUseCase.getAll();
+		List<ZzalDetailResponse> responses = getZzalAllUseCase.getAll();
 		return CustomResponse.okResponseEntity(responses);
 	}
 }

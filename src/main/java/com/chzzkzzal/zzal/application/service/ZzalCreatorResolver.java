@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class ZzalCreatorRouter {
+public class ZzalCreatorResolver {
 	private final List<ZzalCreator> factories;
 
 	public ZzalCreator getFactory(MediaMeta metadata) {

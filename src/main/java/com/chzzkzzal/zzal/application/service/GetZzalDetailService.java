@@ -3,21 +3,21 @@ package com.chzzkzzal.zzal.application.service;
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.member.application.query.MemberInfo;
+import com.chzzkzzal.zzal.adapter.in.event.Events;
 import com.chzzkzzal.zzal.application.event.ZzalViewedEvent;
-import com.chzzkzzal.zzal.application.port.in.ZzalDetailUseCase;
+import com.chzzkzzal.zzal.application.port.in.GetZzalDetailUseCase;
 import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
+import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
-import com.chzzkzzal.zzal.application.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
 import com.chzzkzzal.zzal.exception.zzal.ZzalNotFoundException;
-import com.chzzkzzal.zzal.infrastructure.event.Events;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ZzalDetailUseCaseImpl implements ZzalDetailUseCase {
+public class GetZzalDetailService implements GetZzalDetailUseCase {
 
 	private final LoadMemberPort memberLoader;
 	private final LoadZzalPort loadZzalPort;
@@ -32,7 +32,8 @@ public class ZzalDetailUseCaseImpl implements ZzalDetailUseCase {
 			new ZzalViewedEvent(
 				query.zzalId(),
 				query.clientInfo(),
-				member.id())
+				member.id()
+			)
 		);
 		return ZzalDetailResponse.toResponse(zzal, member);
 	}

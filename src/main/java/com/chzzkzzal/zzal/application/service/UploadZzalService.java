@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chzzkzzal.core.storage.s3.adapter.in.S3Facade;
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.application.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
+import com.chzzkzzal.zzal.application.port.in.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.SaveZzalPort;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
@@ -18,12 +18,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UploadZzalUseCaseImpl implements UploadZzalUseCase {
+public class UploadZzalService implements UploadZzalUseCase {
 	private final SaveZzalPort saveZzalPort;
 	private final MetadataProvider metadataProvider;
 	private final LoadMemberPort loadMemberPort;
 	private final S3Facade s3Facade;
-	private final ZzalCreatorRouter zzalCreatorRouter;
+	private final ZzalCreatorResolver zzalCreatorResolver;
 
 	@Override
 	@Transactional
@@ -31,7 +31,7 @@ public class UploadZzalUseCaseImpl implements UploadZzalUseCase {
 		Member member = loadMemberPort.loadMemberEntity(command.memberId());
 		MediaMeta metadata = metadataProvider.getMetadata(command.file());
 
-		ZzalCreator factory = zzalCreatorRouter.getFactory(metadata);
+		ZzalCreator factory = zzalCreatorResolver.getFactory(metadata);
 
 		String fileName = s3Facade.uploadFile(command.file());
 		String fileUrl = s3Facade.getFileUrl(fileName);
