@@ -17,10 +17,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.chzzkzzal.common.error.CustomResponse;
 import com.chzzkzzal.core.auth.adapter.in.web.security.MemberUserDetails;
+import com.chzzkzzal.zzal.application.command.UploadCommand;
 import com.chzzkzzal.zzal.application.command.ZzalCreateRequest;
 import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
 import com.chzzkzzal.zzal.application.port.in.ZzalDetailUseCase;
 import com.chzzkzzal.zzal.application.port.in.ZzalGetAllUseCase;
+import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
+import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
 import com.chzzkzzal.zzal.application.result.ZzalDetailResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,10 +60,13 @@ public class ZzalController {
 
 		validateUser(memberUserDetails);
 
-		System.out.println("멤버 아이디 :" + memberId);
-
-		Long response = uploadZzalUseCase.upload(zzalCreateRequest.channelId(), zzalCreateRequest.title(), memberId,
+		UploadCommand command = new UploadCommand(
+			zzalCreateRequest.channelId(),
+			zzalCreateRequest.title(),
+			memberId,
 			multipartFile);
+
+		Long response = uploadZzalUseCase.upload(command);
 		return CustomResponse.okResponseEntity(response);
 	}
 
@@ -83,10 +89,11 @@ public class ZzalController {
 	@GetMapping("{zzalId}")
 	public ResponseEntity<CustomResponse<ZzalDetailResponse>> viewDetail(
 		@PathVariable("zzalId") Long zzalId,
-		HttpServletRequest request) {
+		HttpServletRequest request
+	) {
 
-		// Long memberId = Long.valueOf(1);
-		ZzalDetailResponse response = zzalDetailUseCase.getZZal(zzalId, request);
+		GetZzalDetailQuery query = new GetZzalDetailQuery(zzalId, ClientInfo.from(request));
+		ZzalDetailResponse response = zzalDetailUseCase.execute(query);
 		return CustomResponse.okResponseEntity(response);
 	}
 

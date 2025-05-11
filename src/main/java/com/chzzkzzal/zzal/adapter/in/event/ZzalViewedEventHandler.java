@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.myviewhistory.MyViewHistoryService;
 import com.chzzkzzal.zzal.application.event.ZzalViewedEvent;
+import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogDto;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogService;
 import com.chzzkzzal.zzalhits.domain.ZzalHits;
 import com.chzzkzzal.zzalhits.service.ZzalHitsService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,9 +29,9 @@ public class ZzalViewedEventHandler {
 	// )
 	public void handle(ZzalViewedEvent event) {
 		Long zzalId = event.zzalId();
-		HttpServletRequest request = event.httpServletRequest();
+		ClientInfo clientInfo = event.clientInfo();
 		Long memberId = event.memberId();
-		ZzalHits zzalHits = zzalHitsService.addHits(zzalId, request);
+		ZzalHits zzalHits = zzalHitsService.addHits(zzalId, clientInfo);
 		zzalViewLogService.addViewLog(getZzalViewLogDto(memberId, zzalId, zzalHits));
 		if (memberId != null) {
 			myViewHistoryService.addMemberViewHistory(zzalId, memberId);

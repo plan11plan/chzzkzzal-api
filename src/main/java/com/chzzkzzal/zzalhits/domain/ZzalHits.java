@@ -4,6 +4,8 @@ import static com.chzzkzzal.zzalhits.domain.UserAgentAnalyzer.*;
 
 import java.time.LocalDate;
 
+import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,7 +15,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,7 +65,7 @@ public class ZzalHits {
 	@Builder
 	public ZzalHits(Long zzalId, String uniqueIdentifier, String ipAddress,
 		String userAgent, BrowserType browserType,
-		DeviceType deviceType, LocalDate viewDate){
+		DeviceType deviceType, LocalDate viewDate) {
 
 		this.zzalId = zzalId;
 		this.uniqueIdentifier = uniqueIdentifier;
@@ -75,27 +76,21 @@ public class ZzalHits {
 		this.viewDate = viewDate;
 	}
 
-	public static ZzalHits addFromRequest(Long zzalId, HttpServletRequest request) {
-		String ipAddress = ClientIpExtractor.extractIpAddress(request);
+	public static ZzalHits addFromRequest(Long zzalId, ClientInfo clientInfo) {
 
-		UserAgentInfo userAgentInfo = analyze(request);
-		String userAgent = userAgentInfo.userAgent();
-		BrowserType browserType = userAgentInfo.browserType();
-		DeviceType deviceType = userAgentInfo.deviceType();
-
-		String uniqueIdentifier = UniqueIdentifierGenerator.generate(ipAddress, userAgent);
+		String uniqueIdentifier = UniqueIdentifierGenerator
+			.generate(clientInfo.ipAddress(), clientInfo.userAgent());
 		LocalDate viewDate = LocalDate.now();
 
 		return ZzalHits.builder()
 			.zzalId(zzalId)
 			.uniqueIdentifier(uniqueIdentifier)
-			.ipAddress(ipAddress)
-			.userAgent(userAgent)
-			.browserType(browserType)
-			.deviceType(deviceType)
+			.ipAddress(clientInfo.ipAddress())
+			.userAgent(clientInfo.userAgent())
+			.browserType(clientInfo.browserType())
+			.deviceType(clientInfo.deviceType())
 			.viewDate(viewDate)
 			.build();
 	}
-
 
 }

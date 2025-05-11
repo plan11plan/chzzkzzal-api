@@ -1,9 +1,6 @@
 package com.chzzkzzal.zzal.domain.zzal;
 
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.domain.marker.Bookmarkable;
-import com.chzzkzzal.zzal.domain.marker.Uploadable;
-import com.chzzkzzal.zzal.domain.marker.Viewable;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 import com.chzzkzzal.zzal.domain.metadata.Pic;
 
@@ -21,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-public class PicZzal extends Zzal implements Uploadable, Bookmarkable, Viewable {
+public final class PicZzal extends Zzal implements Uploadable, Bookmarkable, Viewable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;

@@ -2,15 +2,15 @@ package com.chzzkzzal.zzal.application.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.chzzkzzal.core.storage.s3.adapter.in.S3Facade;
 import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.zzal.application.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.SaveZzalPort;
-import com.chzzkzzal.zzal.domain.marker.Uploadable;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
+import com.chzzkzzal.zzal.domain.zzal.Uploadable;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
 import com.chzzkzzal.zzal.domain.zzal.factory.ZzalCreator;
 
@@ -27,18 +27,18 @@ public class UploadZzalUseCaseImpl implements UploadZzalUseCase {
 
 	@Override
 	@Transactional
-	public Long upload(String channelId, String title, Long memberId, MultipartFile multipartFile) {
-		Member member = loadMemberPort.loadMemberEntity(memberId);
-		MediaMeta metadata = metadataProvider.getMetadata(multipartFile);
+	public Long upload(UploadCommand command) {
+		Member member = loadMemberPort.loadMemberEntity(command.memberId());
+		MediaMeta metadata = metadataProvider.getMetadata(command.file());
 
 		ZzalCreator factory = zzalCreatorRouter.getFactory(metadata);
 
-		String fileName = s3Facade.uploadFile(multipartFile);
+		String fileName = s3Facade.uploadFile(command.file());
 		String fileUrl = s3Facade.getFileUrl(fileName);
 
-		Zzal zzal = factory.createZzal(channelId, member, metadata, title, fileUrl);
+		Zzal zzal = factory.createZzal(command.channelId(), member, metadata, command.title(), fileUrl);
 		if (!(zzal instanceof Uploadable)) {
-			throw new IllegalArgumentException("업로르할 수 없습니다.");
+			throw new IllegalArgumentException("업로드할 수 없습니다.");
 		}
 		return saveZzalPort.save(zzal).getId();
 	}

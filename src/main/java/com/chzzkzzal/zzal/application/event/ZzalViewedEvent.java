@@ -1,10 +1,10 @@
 package com.chzzkzzal.zzal.application.event;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.chzzkzzal.zzal.application.port.in.query.ClientInfo;
 
 public record ZzalViewedEvent(
 	Long zzalId,
-	HttpServletRequest httpServletRequest,
+	ClientInfo clientInfo,
 	Long memberId
 ) {
 }
