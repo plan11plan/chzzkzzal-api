@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-public final class PicZzal extends Zzal implements Uploadable, Bookmarkable, Viewable {
+public final class PicZzal extends Zzal implements Uploadable, Bookmarkable, ViewAddable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;

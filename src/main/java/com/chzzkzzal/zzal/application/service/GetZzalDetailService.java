@@ -30,6 +30,7 @@ public class GetZzalDetailService implements GetZzalDetailUseCase {
 
 		Events.raise(
 			new ZzalViewedEvent(
+				zzal,
 				query.zzalId(),
 				query.clientInfo(),
 				member.id()

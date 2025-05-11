@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
-public final class GifZzal extends Zzal implements Uploadable, Bookmarkable, Viewable {
+public final class GifZzal extends Zzal implements Uploadable, Bookmarkable, ViewAddable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
