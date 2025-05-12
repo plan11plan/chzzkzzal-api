@@ -24,7 +24,7 @@ public class MediaFileController {
 	@PostMapping("tt")
 	public Object getMetadata(@RequestParam("files") MultipartFile multipartFiles) {
 		try {
-			return getMetadataService.getMetadata(
+			return getMetadataService.execute(
 				new ExtractMetadataQuery(
 					multipartFiles.getBytes(),
 					multipartFiles.getOriginalFilename(),

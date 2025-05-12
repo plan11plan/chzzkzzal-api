@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.zzal.application.port.in.AddHitUsecase;
+import com.chzzkzzal.zzal.application.port.in.AddHitUseCase;
 import com.chzzkzzal.zzal.application.port.in.RecordZzalViewUseCase;
 import com.chzzkzzal.zzal.application.port.in.command.AddHitCommand;
 import com.chzzkzzal.zzal.application.port.in.command.RecordZzalViewCommand;
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class RecordZzalViewService implements RecordZzalViewUseCase {
 
-	private final AddHitUsecase addHit;          // ✅ 기존 Port 재사용
+	private final AddHitUseCase addHit;          // ✅ 기존 Port 재사용
 	private final ViewLogPort viewLogPort;
 	private final MemberHistoryPort historyPort;
 	private final UniqueKeyGenerator keyGen;
