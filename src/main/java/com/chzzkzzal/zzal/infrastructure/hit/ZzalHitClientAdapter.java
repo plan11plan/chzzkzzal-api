@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.zzal.application.port.out.CountHitPort;
 import com.chzzkzzal.zzal.application.port.out.SaveHitPort;
-import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalHitJpaRepository;
-import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalHit;
+import com.chzzkzzal.zzal.domain.hit.ZzalHit;
+import com.chzzkzzal.zzal.domain.hit.ZzalHitJpaRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

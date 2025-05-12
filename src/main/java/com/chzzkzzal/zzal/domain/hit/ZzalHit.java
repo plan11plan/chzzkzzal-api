@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.domain.zzal.zzal.entity;
+package com.chzzkzzal.zzal.domain.hit;
 
 import static com.chzzkzzal.zzal.infrastructure.hit.UserAgentAnalyzer.*;
 

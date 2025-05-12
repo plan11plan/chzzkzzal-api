@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal.domain.zzal.metadata;
 
-import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalType;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

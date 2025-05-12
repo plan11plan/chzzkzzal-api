@@ -3,7 +3,7 @@ package com.chzzkzzal.zzal.application.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalType;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalType;
 import com.chzzkzzal.zzal.exception.metadata.MetadataUnsupportedFormatException;
 
 import lombok.AllArgsConstructor;

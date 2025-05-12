@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.domain.zzal.zzal.service;
+package com.chzzkzzal.zzal.domain.hit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,7 +7,6 @@ import com.chzzkzzal.zzal.application.port.in.AddHitUseCase;
 import com.chzzkzzal.zzal.application.port.in.command.AddHitCommand;
 import com.chzzkzzal.zzal.application.port.out.SaveHitPort;
 import com.chzzkzzal.zzal.application.port.out.UniqueKeyGenerator;
-import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalHit;
 
 import lombok.RequiredArgsConstructor;
 

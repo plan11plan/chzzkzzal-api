@@ -1,8 +1,6 @@
-package com.chzzkzzal.zzal.domain.zzal.zzal;
+package com.chzzkzzal.zzal.domain.hit;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalHit;
 
 public interface ZzalHitJpaRepository extends JpaRepository<ZzalHit, Long> {
 	Long countByZzalId(Long zzalId);

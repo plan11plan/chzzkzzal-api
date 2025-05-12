@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalType;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalType;
 import com.chzzkzzal.zzal.exception.metadata.MetadataIOException;
 
 import lombok.RequiredArgsConstructor;
