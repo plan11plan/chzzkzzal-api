@@ -1,6 +1,7 @@
-package com.chzzkzzal.zzal.domain.zzal.metadata;
+package com.chzzkzzal.zzal.domain.zzal.metadata.support;
 
 import com.chzzkzzal.zzal.application.port.out.MetadataExtractor;
+import com.chzzkzzal.zzal.domain.zzal.metadata.MediaMeta;
 
 public abstract class AbstractMetadataExtractor<T extends MediaMeta>
 	implements MetadataExtractor<T> {

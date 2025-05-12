@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.domain.zzal.metadata;
+package com.chzzkzzal.zzal.domain.zzal.metadata.support;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

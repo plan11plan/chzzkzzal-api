@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.domain.zzal.metadata;
+package com.chzzkzzal.zzal.domain.zzal.metadata.support;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Component;
 
+import com.chzzkzzal.zzal.domain.zzal.metadata.Pic;
 import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ZzalType;
 import com.chzzkzzal.zzal.exception.metadata.MetadataIOException;
 import com.chzzkzzal.zzal.exception.metadata.MetadataUnsupportedFormatException;

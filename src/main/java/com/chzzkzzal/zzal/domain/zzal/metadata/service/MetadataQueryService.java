@@ -1,10 +1,9 @@
-package com.chzzkzzal.zzal.application.service;
+package com.chzzkzzal.zzal.domain.zzal.metadata.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.chzzkzzal.zzal.application.port.in.ExtractMetadataUseCase;
 import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
 import com.chzzkzzal.zzal.application.port.out.MetadataExtractor;
 import com.chzzkzzal.zzal.application.util.MultipartFileContentType;
@@ -16,14 +15,14 @@ import com.chzzkzzal.zzal.exception.metadata.MetadataUnsupportedFormatException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Component
+@Service
 @Slf4j
 @RequiredArgsConstructor
-public class GetMetadataService implements ExtractMetadataUseCase {
+public class MetadataQueryService {
 
 	private final List<MetadataExtractor<? extends MediaMeta>> extractors;
 
-	public MediaMeta execute(ExtractMetadataQuery query) {
+	public MediaMeta extract(ExtractMetadataQuery query) {
 		String contentType = query.contentType();
 		if (contentType == null)
 			throw new MetadataContentTypeNullException();
