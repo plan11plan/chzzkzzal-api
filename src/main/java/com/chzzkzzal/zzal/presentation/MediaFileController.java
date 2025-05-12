@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chzzkzzal.zzal.application.service.MetadataProvider;
+import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
+import com.chzzkzzal.zzal.application.service.GetMetadataService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/mediaFile")
 public class MediaFileController {
-	private final MetadataProvider metadataProvider;
+	private final GetMetadataService getMetadataService;
 
 	@PostMapping("tt")
 	public Object getMetadata(@RequestParam("files") MultipartFile multipartFiles) {
 		try {
-			return metadataProvider.getMetadata(multipartFiles.getBytes(), multipartFiles.getOriginalFilename(),
-				multipartFiles.getContentType());
+			return getMetadataService.getMetadata(
+				new ExtractMetadataQuery(
+					multipartFiles.getBytes(),
+					multipartFiles.getOriginalFilename(),
+					multipartFiles.getContentType())
+			);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

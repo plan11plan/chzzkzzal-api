@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
 import com.chzzkzzal.zzal.application.port.out.MetadataExtractor;
 import com.chzzkzzal.zzal.application.util.MultipartFileContentType;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
@@ -17,11 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class MetadataProvider {
+public class GetMetadataService {
 
 	private final List<MetadataExtractor<? extends MediaMeta>> extractors;
 
-	public MediaMeta getMetadata(byte[] bytes, String originalName, String contentType) {
+	public MediaMeta getMetadata(ExtractMetadataQuery query) {
+		String contentType = query.contentType();
 		if (contentType == null)
 			throw new MetadataContentTypeNullException();
 
@@ -32,6 +34,6 @@ public class MetadataProvider {
 			.filter(e -> e.supports(type))
 			.findFirst()
 			.orElseThrow(MetadataUnsupportedFormatException::new)
-			.extract(bytes, originalName, contentType);
+			.extract(query.bytes(), query.originalFilename(), contentType);
 	}
 }

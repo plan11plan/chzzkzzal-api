@@ -2,7 +2,7 @@ package com.chzzkzzal.zzal.infrastructure.factory;// PicZzalCreator.java
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.zzal.application.port.in.command.SaveZzalCommand;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 import com.chzzkzzal.zzal.domain.metadata.Pic;
 import com.chzzkzzal.zzal.domain.zzal.PicZzal;
@@ -17,7 +17,13 @@ public class PicZzalCreator implements ZzalCreator {
 	}
 
 	@Override
-	public Zzal createZzal(String channelId, Member member, MediaMeta metadata, String title, String url) {
-		return PicZzal.create(channelId, member, (Pic)metadata, title, url);
+	public Zzal createZzal(SaveZzalCommand command) {
+		return PicZzal.create(
+			command.channelId(),
+			command.member(),
+			(Pic)command.mediaMeta(),
+			command.title(),
+			command.fileUrl()
+		);
 	}
 }

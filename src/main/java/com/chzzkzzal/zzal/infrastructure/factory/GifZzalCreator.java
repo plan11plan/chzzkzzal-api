@@ -2,7 +2,7 @@ package com.chzzkzzal.zzal.infrastructure.factory;// GifZzalCreator.java
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.zzal.application.port.in.command.SaveZzalCommand;
 import com.chzzkzzal.zzal.domain.metadata.Gif;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
 import com.chzzkzzal.zzal.domain.zzal.GifZzal;
@@ -17,7 +17,13 @@ public class GifZzalCreator implements ZzalCreator {
 	}
 
 	@Override
-	public Zzal createZzal(String channelId, Member member, MediaMeta metadata, String title, String url) {
-		return GifZzal.create(channelId, member, (Gif)metadata, title, url);
+	public Zzal createZzal(SaveZzalCommand command) {
+		return GifZzal.create(
+			command.channelId(),
+			command.member(),
+			(Gif)command.mediaMeta(),
+			command.title(),
+			command.fileUrl()
+		);
 	}
 }
