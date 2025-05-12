@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.chzzkzzal.zzal.application.event.ZzalViewedEvent;
 import com.chzzkzzal.zzal.application.port.in.RecordZzalViewUseCase;
 import com.chzzkzzal.zzal.application.port.in.command.RecordZzalViewCommand;
-import com.chzzkzzal.zzal.domain.zzal.ViewAddable;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ViewAddable;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal_tag.domain.model;
 
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

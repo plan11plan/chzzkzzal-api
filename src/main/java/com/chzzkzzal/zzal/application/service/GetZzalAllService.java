@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chzzkzzal.zzal.application.port.in.GetZzalAllUseCase;
 import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 
 import lombok.RequiredArgsConstructor;
 

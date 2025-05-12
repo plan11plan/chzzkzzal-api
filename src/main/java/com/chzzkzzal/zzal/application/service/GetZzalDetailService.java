@@ -9,7 +9,7 @@ import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
 import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 import com.chzzkzzal.zzal.exception.zzal.ZzalNotFoundException;
 import com.chzzkzzal.zzal.presentation.event.Events;
 

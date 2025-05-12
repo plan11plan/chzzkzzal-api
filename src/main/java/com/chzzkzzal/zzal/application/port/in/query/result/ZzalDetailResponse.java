@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import com.chzzkzzal.member.application.query.MemberInfo;
 import com.chzzkzzal.member.domain.Member;
-import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.metadata.MediaMeta;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 
 public record ZzalDetailResponse(
 	Long zzalId,

@@ -12,8 +12,8 @@ import com.chzzkzzal.zzal.application.port.in.command.SaveZzalCommand;
 import com.chzzkzzal.zzal.application.port.in.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
-import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
-import com.chzzkzzal.zzal.domain.zzal.ZzalCommandDomainService;
+import com.chzzkzzal.zzal.domain.zzal.metadata.MediaMeta;
+import com.chzzkzzal.zzal.domain.zzal.zzal.service.ZzalCommandService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,7 @@ public class UploadZzalService implements UploadZzalUseCase {
 	private final ExtractMetadataUseCase extractMetadataUseCase;
 	private final LoadMemberPort loadMemberPort;
 	private final S3Facade s3Facade;
-	private final ZzalCommandDomainService zzalService;
+	private final ZzalCommandService zzalService;
 
 	@Override
 	@Transactional

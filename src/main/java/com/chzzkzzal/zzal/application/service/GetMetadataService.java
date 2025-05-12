@@ -8,8 +8,8 @@ import com.chzzkzzal.zzal.application.port.in.ExtractMetadataUseCase;
 import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
 import com.chzzkzzal.zzal.application.port.out.MetadataExtractor;
 import com.chzzkzzal.zzal.application.util.MultipartFileContentType;
-import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
-import com.chzzkzzal.zzal.domain.zzal.ZzalType;
+import com.chzzkzzal.zzal.domain.zzal.metadata.MediaMeta;
+import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalType;
 import com.chzzkzzal.zzal.exception.metadata.MetadataContentTypeNullException;
 import com.chzzkzzal.zzal.exception.metadata.MetadataUnsupportedFormatException;
 

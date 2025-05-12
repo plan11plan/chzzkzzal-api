@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
-import com.chzzkzzal.zzal.domain.zzal.ZzalJpaRepository;
+import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalJpaRepository;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 import com.chzzkzzal.zzal_tag.domain.model.Hashtag;
 import com.chzzkzzal.zzal_tag.domain.model.ZzalHashtag;
 import com.chzzkzzal.zzal_tag.domain.model.ZzalHashtagId;
@@ -25,7 +25,7 @@ public class TaggingService {
 	private final HashtagRepository hashtagRepository;
 	private final ZzalJpaRepository zzalRepository;
 	private final ZzalHashtagRepository zzalHashtagRepository;
-	
+
 	public void tagZzal(Long zzalId, List<String> tagNames) {
 		Zzal zzal = zzalRepository.findById(zzalId)
 			.orElseThrow(() -> new EntityNotFoundException("Zzal not found : " + zzalId));

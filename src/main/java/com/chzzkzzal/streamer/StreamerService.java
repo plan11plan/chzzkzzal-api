@@ -9,8 +9,8 @@ import com.chzzkzzal.core.chzzk.adapter.in.facade.ChzzkDevelopersFacade;
 import com.chzzkzzal.core.chzzk.common.response.ChzzkChannelInfoResponse;
 import com.chzzkzzal.member.domain.MemberRepository;
 import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
-import com.chzzkzzal.zzal.domain.zzal.ZzalJpaRepository;
+import com.chzzkzzal.zzal.domain.zzal.zzal.ZzalJpaRepository;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 
 import lombok.RequiredArgsConstructor;
 
