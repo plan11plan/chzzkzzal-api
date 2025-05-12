@@ -3,7 +3,6 @@ package com.chzzkzzal.zzal.application.service;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.chzzkzzal.zzal.application.port.out.MetadataExtractor;
 import com.chzzkzzal.zzal.application.util.MultipartFileContentType;
@@ -22,8 +21,7 @@ public class MetadataProvider {
 
 	private final List<MetadataExtractor<? extends MediaMeta>> extractors;
 
-	public MediaMeta getMetadata(MultipartFile file) {
-		String contentType = file.getContentType();
+	public MediaMeta getMetadata(byte[] bytes, String originalName, String contentType) {
 		if (contentType == null)
 			throw new MetadataContentTypeNullException();
 
@@ -34,6 +32,6 @@ public class MetadataProvider {
 			.filter(e -> e.supports(type))
 			.findFirst()
 			.orElseThrow(MetadataUnsupportedFormatException::new)
-			.extract(file);
+			.extract(bytes, originalName, contentType);
 	}
 }

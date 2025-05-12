@@ -1,6 +1,7 @@
 package com.chzzkzzal.core.storage.s3.adapter.in;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chzzkzzal.common.error.CustomResponse;
+import com.chzzkzzal.core.storage.s3.application.command.UploadFileCommand;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +30,10 @@ public class S3Controller {
 	@Operation(summary = "S3 파일 업로드", description = "S3 파일 업로드 API [담당자 : 김진수]")
 	@PostMapping
 	public ResponseEntity<CustomResponse<List<String>>> upload(@RequestParam("files") List<MultipartFile> files) {
-		return CustomResponse.okResponseEntity(facade.uploadFiles(files));
+		List<UploadFileCommand> commands = files.stream()
+			.map(UploadFileCommand::from)
+			.collect(Collectors.toList());
+		return CustomResponse.okResponseEntity(facade.uploadFiles(commands));
 	}
 
 	@Operation(summary = "S3 파일 제거", description = "S3 파일 제거 API [담당자 : 김진수]")

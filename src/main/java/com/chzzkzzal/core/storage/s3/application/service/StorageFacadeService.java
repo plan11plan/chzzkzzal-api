@@ -3,8 +3,8 @@ package com.chzzkzzal.core.storage.s3.application.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.chzzkzzal.core.storage.s3.application.command.UploadFileCommand;
 import com.chzzkzzal.core.storage.s3.application.port.StoragePort;
 
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,14 @@ public class StorageFacadeService {
 
 	private final StoragePort storage;
 
-	public List<String> uploadFiles(List<MultipartFile> files) {
-		return storage.upload(files);
+	public List<String> uploadFiles(List<UploadFileCommand> commands) {
+
+		return storage.upload(commands);
 	}
 
-	public String uploadFile(MultipartFile file) {
-		return storage.upload(file);
+	public String uploadFile(UploadFileCommand command) {
+
+		return storage.upload(command);
 	}
 
 	public void deleteFile(String key) {

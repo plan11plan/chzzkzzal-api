@@ -3,13 +3,13 @@ package com.chzzkzzal.core.storage.s3.application.port;
 import java.net.URL;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.chzzkzzal.core.storage.s3.application.command.UploadFileCommand;
 
 public interface StoragePort {
 
-	List<String> upload(List<MultipartFile> files);
+	List<String> upload(List<UploadFileCommand> commands);
 
-	String upload(MultipartFile file);
+	String upload(UploadFileCommand command);
 
 	void delete(String key);
 

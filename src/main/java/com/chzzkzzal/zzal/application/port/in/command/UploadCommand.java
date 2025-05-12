@@ -1,11 +1,17 @@
 package com.chzzkzzal.zzal.application.port.in.command;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.InputStream;
 
 public record UploadCommand(
 	String channelId,
 	String title,
 	Long memberId,
-	MultipartFile file
+	String name,
+	String originalFilename,
+	String contentType,
+	long size,
+	byte[] bytes,
+	InputStream inputStream
+
 ) {
 }

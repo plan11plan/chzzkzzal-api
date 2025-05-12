@@ -1,9 +1,9 @@
 package com.chzzkzzal.zzal.application.dto;
 
-import static com.chzzkzzal.zzal.adapter.out.hit.UserAgentAnalyzer.*;
+import static com.chzzkzzal.zzal.infrastructure.hit.UserAgentAnalyzer.*;
 
-import com.chzzkzzal.zzal.adapter.out.hit.ClientIpExtractor;
-import com.chzzkzzal.zzal.adapter.out.hit.UserAgentAnalyzer;
+import com.chzzkzzal.zzal.infrastructure.hit.ClientIpExtractor;
+import com.chzzkzzal.zzal.infrastructure.hit.UserAgentAnalyzer;
 
 import jakarta.servlet.http.HttpServletRequest;
 

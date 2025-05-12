@@ -1,6 +1,6 @@
 package com.chzzkzzal.zzal.domain.zzal;
 
-import static com.chzzkzzal.zzal.adapter.out.hit.UserAgentAnalyzer.*;
+import static com.chzzkzzal.zzal.infrastructure.hit.UserAgentAnalyzer.*;
 
 import java.time.LocalDate;
 

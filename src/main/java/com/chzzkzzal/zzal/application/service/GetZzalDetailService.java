@@ -3,7 +3,6 @@ package com.chzzkzzal.zzal.application.service;
 import org.springframework.stereotype.Service;
 
 import com.chzzkzzal.member.application.query.MemberInfo;
-import com.chzzkzzal.zzal.adapter.in.event.Events;
 import com.chzzkzzal.zzal.application.event.ZzalViewedEvent;
 import com.chzzkzzal.zzal.application.port.in.GetZzalDetailUseCase;
 import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
@@ -12,6 +11,7 @@ import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
 import com.chzzkzzal.zzal.domain.zzal.Zzal;
 import com.chzzkzzal.zzal.exception.zzal.ZzalNotFoundException;
+import com.chzzkzzal.zzal.presentation.event.Events;
 
 import lombok.RequiredArgsConstructor;
 
