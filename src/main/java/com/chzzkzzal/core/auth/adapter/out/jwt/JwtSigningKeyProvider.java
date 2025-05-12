@@ -1,12 +1,13 @@
 package com.chzzkzzal.core.auth.adapter.out.jwt;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.common.properties.TokenProperties;
 
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class JwtSigningKeyProvider {
 
 	@PostConstruct
 	private void init() {
-		byte[] keyBytes = Decoders.BASE64.decode(tokenProperties.secretKey());
+		byte[] keyBytes = tokenProperties.secretKey().getBytes(StandardCharsets.UTF_8);
 		this.cachedSecretKey = Keys.hmacShaKeyFor(keyBytes);
 	}
 
