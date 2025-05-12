@@ -35,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 	+ "https://developers.chzzk.naver.com/application")
 public class ChzzkOAuthController {
 
-	@Value("${spring.redirect.url}")
+	@Value("${chzzkzzal.front}")
 	private String redirectUrl;
 
 	private final ChzzkDevelopersFacade chzzkDevelopersFacade;
