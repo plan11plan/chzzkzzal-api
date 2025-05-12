@@ -7,7 +7,8 @@ public record ZzalViewedEvent(
 	Zzal zzal,
 	Long zzalId,
 	ClientInfo clientInfo,
-	Long memberId
+	Long memberId,
+	boolean countable
 
 ) {
 }

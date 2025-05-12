@@ -1,4 +1,4 @@
-package com.chzzkzzal.zzal.presentation.event;
+package com.chzzkzzal.zzal.infrastructure.event;
 
 import org.springframework.context.ApplicationEventPublisher;
 

@@ -9,9 +9,10 @@ import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
 import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
 import com.chzzkzzal.zzal.application.port.out.LoadZzalPort;
+import com.chzzkzzal.zzal.domain.zzal.zzal.entity.ViewAddable;
 import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
 import com.chzzkzzal.zzal.exception.zzal.ZzalNotFoundException;
-import com.chzzkzzal.zzal.presentation.event.Events;
+import com.chzzkzzal.zzal.infrastructure.event.Events;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +34,8 @@ public class GetZzalDetailService implements GetZzalDetailUseCase {
 				zzal,
 				query.zzalId(),
 				query.clientInfo(),
-				member.id()
+				member.id(),
+				zzal instanceof ViewAddable
 			)
 		);
 		return ZzalDetailResponse.toResponse(zzal, member);
