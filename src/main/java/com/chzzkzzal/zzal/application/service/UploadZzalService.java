@@ -12,27 +12,24 @@ import com.chzzkzzal.zzal.application.port.in.command.SaveZzalCommand;
 import com.chzzkzzal.zzal.application.port.in.command.UploadCommand;
 import com.chzzkzzal.zzal.application.port.in.query.ExtractMetadataQuery;
 import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
-import com.chzzkzzal.zzal.application.port.out.SaveZzalPort;
 import com.chzzkzzal.zzal.domain.metadata.MediaMeta;
-import com.chzzkzzal.zzal.domain.zzal.Uploadable;
-import com.chzzkzzal.zzal.domain.zzal.Zzal;
+import com.chzzkzzal.zzal.domain.zzal.ZzalCommandDomainService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UploadZzalService implements UploadZzalUseCase {
-	private final SaveZzalPort saveZzalPort;
 	private final ExtractMetadataUseCase extractMetadataUseCase;
 	private final LoadMemberPort loadMemberPort;
 	private final S3Facade s3Facade;
-	private final ZzalCreatorResolver zzalCreatorResolver;
+	private final ZzalCommandDomainService zzalService;
 
 	@Override
 	@Transactional
 	public Long upload(UploadCommand command) {
 		Member member = loadMemberPort.loadMemberEntity(command.memberId());
-		MediaMeta metadata = extractMetadataUseCase.execute(
+		MediaMeta mediaMeta = extractMetadataUseCase.execute(
 			new ExtractMetadataQuery(
 				command.bytes(),
 				command.originalFilename(),
@@ -48,18 +45,12 @@ public class UploadZzalService implements UploadZzalUseCase {
 		);
 		String fileUrl = s3Facade.getFileUrl(fileName);
 
-		Zzal zzal = zzalCreatorResolver
-			.getFactory(metadata)
-			.createZzal(new SaveZzalCommand(
-				command.channelId(),
-				member,
-				metadata,
-				command.title(),
-				fileUrl)
-			);
-		if (!(zzal instanceof Uploadable)) {
-			throw new IllegalArgumentException("업로드할 수 없습니다.");
-		}
-		return saveZzalPort.save(zzal).getId();
+		return zzalService.save(new SaveZzalCommand(
+			command.channelId(),
+			member,
+			mediaMeta,
+			command.title(),
+			fileUrl)
+		);
 	}
 }
