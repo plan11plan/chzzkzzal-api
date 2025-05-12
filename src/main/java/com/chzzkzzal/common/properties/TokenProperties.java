@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import jakarta.validation.constraints.Min;
 
-@ConfigurationProperties(prefix = "spring.security.jwt")
+@ConfigurationProperties(prefix = "chzzkzzal.security.jwt")
 public record TokenProperties(
 	@NotNull String secretKey,
 	@NotNull ExpirationTime expirationTime
