@@ -23,9 +23,6 @@ public class TagQueryService {
 	private final ZzalHashtagRepository zzalHashtagRepository;
 	private final ZzalJpaRepository zzalJpaRepository;
 
-	/**
-	 * hashtag.name LIKE '%keyword%' 기반 검색 (페이징 지원)
-	 */
 	public Page<Zzal> search(String keyword, Pageable pageable) {
 		return zzalHashtagRepository.findZzalsByHashtagKeyword(keyword, pageable);
 	}

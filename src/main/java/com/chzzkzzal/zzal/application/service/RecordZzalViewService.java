@@ -29,13 +29,11 @@ public class RecordZzalViewService implements RecordZzalViewUseCase {
 	@Override
 	public void record(RecordZzalViewCommand c) {
 
-		// 1) 조회수 카운트 (ViewAddable 일 때만)
 		String uniqueKey = c.countable()
 			? addHit.addHit(new AddHitCommand(c.zzalId(), c.clientInfo()))
 			: keyGen.generate(c.clientInfo().ipAddress(),
 			c.clientInfo().userAgent());
 
-		// 2) 조회 로그 저장
 		viewLogPort.save(new ZzalViewLogDto(
 			c.zzalId(),
 			c.memberId(),
@@ -46,7 +44,6 @@ public class RecordZzalViewService implements RecordZzalViewUseCase {
 			c.clientInfo().deviceType(),
 			LocalDateTime.now()));
 
-		// 3) 개인 시청 이력 (로그인 시)
 		if (c.memberId() != null) {
 			historyPort.addMemberHistory(c.zzalId(), c.memberId());
 		}

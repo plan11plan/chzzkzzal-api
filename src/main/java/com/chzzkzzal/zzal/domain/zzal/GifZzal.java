@@ -36,7 +36,7 @@ public final class GifZzal extends Zzal implements Uploadable, Bookmarkable, Vie
 		gifZzal.channelId = channelId;
 		gifZzal.member = member;
 		gifZzal.metaInfo = gifInfo;
-		gifZzal.title = title; // 상위 클래스의 title 필드 설정
+		gifZzal.title = title;
 		gifZzal.url = url;
 		return gifZzal;
 	}
