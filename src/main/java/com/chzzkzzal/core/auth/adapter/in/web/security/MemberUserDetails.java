@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.chzzkzzal.member.domain.Member;
+import com.chzzkzzal.member.business.domain.Member;
 
 import lombok.Getter;
 

@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.core.auth.application.port.out.LoadMemberQueryPort;
 import com.chzzkzzal.core.auth.application.port.out.SaveMemberCommandPort;
-import com.chzzkzzal.member.application.port.out.LoadMemberQuery;
-import com.chzzkzzal.member.application.port.out.SaveMemberCommand;
-import com.chzzkzzal.member.application.query.MemberInfo;
+import com.chzzkzzal.member.business.application.port.out.LoadMemberQuery;
+import com.chzzkzzal.member.business.application.port.out.SaveMemberCommand;
+import com.chzzkzzal.member.business.application.query.MemberInfo;
 
 import lombok.RequiredArgsConstructor;
 

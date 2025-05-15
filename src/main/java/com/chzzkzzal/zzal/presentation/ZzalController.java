@@ -18,13 +18,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.chzzkzzal.common.error.CustomResponse;
 import com.chzzkzzal.core.auth.adapter.in.web.security.MemberUserDetails;
-import com.chzzkzzal.zzal.application.dto.ClientInfo;
-import com.chzzkzzal.zzal.application.port.in.GetZzalAllUseCase;
-import com.chzzkzzal.zzal.application.port.in.GetZzalDetailUseCase;
-import com.chzzkzzal.zzal.application.port.in.UploadZzalUseCase;
-import com.chzzkzzal.zzal.application.port.in.command.UploadCommand;
-import com.chzzkzzal.zzal.application.port.in.query.GetZzalDetailQuery;
-import com.chzzkzzal.zzal.application.port.in.query.result.ZzalDetailResponse;
+import com.chzzkzzal.zzal.business.application.dto.ClientInfo;
+import com.chzzkzzal.zzal.business.application.port.in.GetZzalAllUseCase;
+import com.chzzkzzal.zzal.business.application.port.in.GetZzalDetailUseCase;
+import com.chzzkzzal.zzal.business.application.port.in.UploadZzalUseCase;
+import com.chzzkzzal.zzal.business.application.port.in.command.UploadCommand;
+import com.chzzkzzal.zzal.business.application.port.in.query.GetZzalDetailQuery;
+import com.chzzkzzal.zzal.business.application.port.in.query.result.ZzalDetailResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

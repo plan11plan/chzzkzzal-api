@@ -3,7 +3,7 @@ package com.chzzkzzal.zzal.infrastructure.memberhistory;
 import org.springframework.stereotype.Component;
 
 import com.chzzkzzal.myviewhistory.MyViewHistoryService;
-import com.chzzkzzal.zzal.application.port.out.MemberHistoryPort;
+import com.chzzkzzal.zzal.business.application.port.out.MemberHistoryPort;
 
 import lombok.RequiredArgsConstructor;
 

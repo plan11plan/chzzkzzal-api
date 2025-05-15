@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chzzkzzal.common.error.CustomResponse;
-import com.chzzkzzal.zzal.application.port.in.GetHitCountUseCase;
+import com.chzzkzzal.zzal.business.application.port.in.GetHitCountUseCase;
 
 import lombok.RequiredArgsConstructor;
 

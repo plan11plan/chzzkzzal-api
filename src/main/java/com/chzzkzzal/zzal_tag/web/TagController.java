@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chzzkzzal.common.error.CustomResponse;
-import com.chzzkzzal.zzal.domain.zzal.zzal.entity.Zzal;
+import com.chzzkzzal.zzal.business.domain.zzal.zzal.entity.Zzal;
 import com.chzzkzzal.zzal_tag.application.TagQueryService;
 import com.chzzkzzal.zzal_tag.application.TaggingService;
 

@@ -9,7 +9,7 @@ import com.chzzkzzal.core.auth.application.port.out.TokenGeneratorPort;
 import com.chzzkzzal.core.auth.application.result.SignInResponse;
 import com.chzzkzzal.core.auth.domain.RefreshToken;
 import com.chzzkzzal.core.auth.domain.RefreshTokenStorePort;
-import com.chzzkzzal.member.application.query.MemberInfo;
+import com.chzzkzzal.member.business.application.query.MemberInfo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

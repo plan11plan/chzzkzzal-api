@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.zzal.application.port.out.LoadMemberPort;
+import com.chzzkzzal.zzal.business.application.port.out.LoadMemberPort;
 
 import lombok.RequiredArgsConstructor;
 

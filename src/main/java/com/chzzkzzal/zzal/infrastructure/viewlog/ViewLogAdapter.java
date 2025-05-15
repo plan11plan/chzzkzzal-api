@@ -2,7 +2,7 @@ package com.chzzkzzal.zzal.infrastructure.viewlog;
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.zzal.application.port.out.ViewLogPort;
+import com.chzzkzzal.zzal.business.application.port.out.ViewLogPort;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogDto;
 import com.chzzkzzal.zzal_view_log.ZzalViewLogService;
 

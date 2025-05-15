@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.chzzkzzal.zzal.application.port.out.UniqueKeyGenerator;
+import com.chzzkzzal.zzal.business.application.port.out.UniqueKeyGenerator;
 
 import lombok.extern.slf4j.Slf4j;
 
