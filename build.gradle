@@ -58,6 +58,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
 
+    // MONITORING
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
     // 테스트 관련
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -75,6 +79,15 @@ tasks.withType(JavaCompile) {
     options.compilerArgs += ["-Xlint:unchecked"]
 
 }
+task analyzeDependencies {
+    doLast {
+        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            def file = artifact.file
+            println "${artifact.name}: ${file.length() / (1024 * 1024)} MB"
+        }
+    }
+}
+
 
 clean {
     delete file(querydslDir)

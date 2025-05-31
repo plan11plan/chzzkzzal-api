@@ -14,10 +14,12 @@ import com.chzzkzzal.zzal.business.domain.zzal.zzal.entity.Zzal;
 import com.chzzkzzal.zzal.exception.zzal.ZzalNotFoundException;
 import com.chzzkzzal.zzal.infrastructure.event.Events;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Timed(value = "zzal.detail", description = "짤 상세 조회 요청 수")
 public class GetZzalDetailService implements GetZzalDetailUseCase {
 
 	private final LoadMemberPort memberLoader;
