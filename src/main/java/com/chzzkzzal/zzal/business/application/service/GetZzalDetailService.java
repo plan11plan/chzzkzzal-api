@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Timed(value = "zzal.detail", description = "짤 상세 조회 요청 수")
+@Timed(value = "zzal.detail.event", description = "짤 상세 조회 비동기")
 public class GetZzalDetailService implements GetZzalDetailUseCase {
 
 	private final LoadMemberPort memberLoader;

@@ -3,6 +3,8 @@ package com.chzzkzzal.zzal.business.domain.zzal.zzal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.chzzkzzal.zzal.business.application.port.out.DeleteZzalPort;
@@ -25,6 +27,16 @@ public class ZzalJpaRepositoryCustom implements SaveZzalPort, LoadZzalPort, Dele
 	@Override
 	public List<Zzal> findAll() {
 		return jpaRepository.findAll();
+	}
+
+	@Override
+	public Page<Zzal> findAll(Pageable pageable) {
+		return jpaRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Zzal> findByIdLessThan(final Long id, final Pageable pageable) {
+		return jpaRepository.findByIdLessThan(id, pageable);
 	}
 
 	@Override
